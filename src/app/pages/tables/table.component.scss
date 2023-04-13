@@ -1,0 +1,25 @@
+.table-title {
+  font-size: 1.5rem;
+  font-weight: 500;
+
+}
+
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -10px; // adjust the position to extend beyond the container
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    z-index: -1;
+    background-color: rgba(#3a98ce, 0.2);
+    border-radius: 5px;
+  }
+}
