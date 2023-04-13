@@ -1,46 +1,40 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import { AbmAlumnosComponent } from './abm-alumnos/abm-alumnos.component';
+import { AbmStudentsComponent } from './abm-students/abm-students.component';
 
-export interface Estudiante {
+export interface Student {
   id: number;
-  nombre: string;
+  name: string;
   apellido: string;
   fecha_registro: Date;
 }
 
 @Component({
-  selector: 'app-tablas',
-  templateUrl: './tablas.component.html',
-  styleUrls: ['./tablas.component.scss']
+  selector: 'app-table',
+  templateUrl: './table.component.html',
+  styleUrls: ['./table.component.scss']
 })
-export class TablasComponent {
+export class TableComponent {
 
-  estudiantes: Estudiante[] = [
+  estudiantes: Student[] = [
     {
       id: 1,
-      nombre: 'Juan',
-      apellido: 'Sosa',
+      name: 'Andres',
+      apellido: 'Osuna',
       fecha_registro: new Date()
     },
     {
       id: 2,
-      nombre: 'Miriam',
-      apellido: 'Paez',
+      name: 'Roberto',
+      apellido: 'Gonzalez',
       fecha_registro: new Date()
-    },
-    {
-      id: 3,
-      nombre: 'Cynthia',
-      apellido: 'Coronel',
-      fecha_registro: new Date()
-    },
+    }
   ];
 
   dataSource = new MatTableDataSource(this.estudiantes);
 
-  displayedColumns: string[] = ['id', 'nombreCompleto', 'fecha_registro'];
+  displayedColumns: string[] = ['id', 'fullName', 'fecha_registro'];
 
   aplicarFiltros(ev: Event): void {
     const inputValue = (ev.target as HTMLInputElement)?.value;
@@ -50,8 +44,8 @@ export class TablasComponent {
   constructor(private matDialog: MatDialog) {}
 
 
-  abrirABMAlumnos(): void {
-    const dialog = this.matDialog.open(AbmAlumnosComponent)
+  openABMStudent(): void {
+    const dialog = this.matDialog.open(AbmStudentsComponent)
     dialog.afterClosed().subscribe((valor) => {
       if (valor) {
         this.dataSource.data = [

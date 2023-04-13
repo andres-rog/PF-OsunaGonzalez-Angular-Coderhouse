@@ -16,16 +16,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'clase-07-angular-material-practica'`, () => {
+  it(`should have as title '1PF-AndresOsuna'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('clase-07-angular-material-practica');
+    expect(app.title).toEqual('1PF-AndresOsuna');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('clase-07-angular-material-practica app is running!');
+    expect(compiled.querySelector('.content span')?.textContent).toContain('1PF-AndresOsuna app is running!');
   });
 });

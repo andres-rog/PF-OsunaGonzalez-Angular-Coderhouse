@@ -2,18 +2,18 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 interface DialogData {
-  usuario: {
-    nombre: string;
-    apellido: string;
+  student: {
+    firstName: string;
+    lastName: string;
   }
 }
 
 @Component({
-  selector: 'app-usuarios-dialog',
-  templateUrl: './usuarios-dialog.component.html',
-  styleUrls: ['./usuarios-dialog.component.scss']
+  selector: 'app-student-dialog',
+  templateUrl: './student-dialog.component.html',
+  styleUrls: ['./student-dialog.component.scss']
 })
-export class UsuariosDialogComponent {
+export class StudentDialogComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
   ) {}

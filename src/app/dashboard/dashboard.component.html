@@ -1,17 +1,26 @@
-<mat-drawer-container class="example-container" autosize>
+<mat-drawer-container class="dashboard-container" autosize>
 
-  <!-- SIDEBAR -->
-  <mat-drawer #drawer class="example-sidenav" mode="side">
-    <p>Auto-resizing sidenav</p>
-    <p *ngIf="showFiller">Lorem, ipsum dolor sit amet consectetur.</p>
-    <button (click)="showFiller = !showFiller" mat-raised-button>
-      Toggle extra text
-    </button>
+  <!-- Sidebar -->
+  <mat-drawer #drawer class="dashboard-sidenav" mode="side">
+    <span class="sidenav-title">Elije una opcion</span>
+    <mat-divider></mat-divider>
+    <br>
+    <section class = "sidenav-buttons">
+      <button mat-button color="primary">
+        Alumnos
+      </button>
+      <button mat-button disabled>
+        Profesores
+      </button>
+      <button mat-button disabled>
+        Clases
+      </button>
+    </section>
   </mat-drawer>
 
-  <!-- MI WRAPPER  -->
-  <div class="example-sidenav-content">
-    <!-- TOOLBAR  -->
+  <!--Main-->
+  <div class="dashboard-sidenav-content">
+    <!-- Toolbar  -->
     <mat-toolbar color="primary">
       <button
         (click)="drawer.toggle()"
@@ -21,37 +30,12 @@
       >
         <mat-icon>menu</mat-icon>
       </button>
-      <span>My App | Es produccion? {{ isProd }} </span>
-      <span class="example-spacer"></span>
-      <button
-        mat-icon-button
-        class="example-icon favorite-icon"
-        aria-label="Example icon-button with heart icon"
-      >
-        <mat-icon>favorite</mat-icon>
-      </button>
-      <button
-        mat-icon-button
-        class="example-icon"
-        aria-label="Example icon-button with share icon"
-      >
-        <mat-icon>share</mat-icon>
-      </button>
+      <span>ABM de Alumnos</span>
     </mat-toolbar>
 
-    <!-- MIS PAGINAS -->
+    <!-- Main Content -->
     <main>
-
-
-      <!-- <app-cards></app-cards> -->
-
-      <!-- <app-buttons-and-icons></app-buttons-and-icons> -->
-
-      <!-- <app-formularios></app-formularios> -->
-
-      <!-- <app-dialogs></app-dialogs> -->
-
-      <app-tablas></app-tablas>
+      <app-table></app-table>
     </main>
   </div>
 </mat-drawer-container>

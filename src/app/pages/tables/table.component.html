@@ -1,5 +1,5 @@
 <div class="mb-3">
-  <button (click)="abrirABMAlumnos()" color="primary" mat-flat-button>
+  <button (click)="openABMStudent()" color="primary" mat-flat-button>
     <mat-icon>add</mat-icon>
     Agregar Alumno
   </button>
@@ -21,10 +21,10 @@
   </ng-container>
 
   <!-- Nombre Completo Column -->
-  <ng-container matColumnDef="nombreCompleto">
+  <ng-container matColumnDef="fullName">
     <th mat-header-cell *matHeaderCellDef>Nombre completo</th>
     <td mat-cell *matCellDef="let usuario">
-      {{usuario | nombreCompleto : 'mayuscula': 'cualquiercosa' }}
+      {{usuario | fullName : 'mayuscula': 'cualquiercosa' }}
     </td>
   </ng-container>
 

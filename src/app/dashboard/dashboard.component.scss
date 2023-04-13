@@ -1,13 +1,23 @@
-.example-container {
+.dashboard-container {
   height: 100vh;
 }
 
-.example-sidenav-content {
+.dashboard-sidenav-content {
   main {
     padding: 1rem;
   }
 }
 
-.example-sidenav {
+.dashboard-sidenav {
   padding: 20px;
+}
+
+.sidenav-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sidenav-title {
+  font-size: 1.5em;
 }

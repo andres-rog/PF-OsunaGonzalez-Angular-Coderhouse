@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { UsuariosDialogComponent } from './mis-dialogs/usuarios-dialog/usuarios-dialog.component';
-import { ComidasDialogComponent } from './mis-dialogs/comidas-dialog/comidas-dialog.component';
+import { StudentDialogComponent } from './dialog-components/student-dialog/student-dialog.component';
 
 
 @Component({
@@ -17,24 +16,17 @@ export class DialogsComponent {
 
 
 
-  abrirDialogoDeUsuarios(): void {
-    const dialogo = this.dialogService.open(UsuariosDialogComponent, {
+  openStudentDialog(): void {
+    const dialog = this.dialogService.open(StudentDialogComponent, {
       data: {
-        usuario: {
-          nombre: 'josue2',
-          apellido: 'baez',
+        student: {
+          firstName: 'josue2',
+          lastName: 'baez',
         }
       }
     });
 
-    dialogo.afterClosed()
-      .subscribe((valor) => console.log(valor));
-  }
-
-
-
-
-  abrirDialogoDeComidas(): void {
-    this.dialogService.open(ComidasDialogComponent);
+    dialog.afterClosed()
+      .subscribe((value) => console.log(value));
   }
 }

@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "clase-07-angular-material-practica": {
+    "1PF-AndresOsuna": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/clase-07-angular-material-practica",
+            "outputPath": "dist/1PF-AndresOsuna",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -73,10 +73,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "clase-07-angular-material-practica:build:production"
+              "browserTarget": "1PF-AndresOsuna:build:production"
             },
             "development": {
-              "browserTarget": "clase-07-angular-material-practica:build:development"
+              "browserTarget": "1PF-AndresOsuna:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -84,7 +84,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "clase-07-angular-material-practica:build"
+            "browserTarget": "1PF-AndresOsuna:build"
           }
         },
         "test": {
