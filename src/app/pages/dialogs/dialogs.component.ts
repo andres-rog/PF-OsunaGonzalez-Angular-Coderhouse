@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { StudentDialogComponent } from './dialog-components/student-dialog/student-dialog.component';
 
-
 @Component({
   selector: 'app-dialogs',
   templateUrl: './dialogs.component.html',

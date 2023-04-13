@@ -10,7 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { AbmStudentsComponent } from './abm-students/abm-students.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { DialogsModule } from '../dialogs/dialogs.module';
 
 @NgModule({
   declarations: [
@@ -26,7 +26,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatDialogModule,
     MatInputModule,
     MatButtonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DialogsModule
   ],
   exports: [
     TableComponent

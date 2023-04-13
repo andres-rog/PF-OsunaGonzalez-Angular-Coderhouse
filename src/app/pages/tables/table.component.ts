@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { AbmStudentsComponent } from './abm-students/abm-students.component';
+import { DeleteStudentDialogComponent } from '../dialogs/dialog-components/delete-student-dialog/delete-student-dialog.component';
 
 export interface Student {
   id: number;
@@ -21,7 +22,7 @@ export interface Student {
 })
 export class TableComponent {
 
-  estudiantes: Student[] = [
+  student: Student[] = [
     {
       id: 1,
       name1: 'Andres',
@@ -44,11 +45,11 @@ export class TableComponent {
     }
   ];
 
-  dataSource = new MatTableDataSource(this.estudiantes);
+  dataSource = new MatTableDataSource(this.student);
 
   displayedColumns: string[] = ['id', 'firstNames', 'lastNames', 'phone', 'email', 'registrer_date', 'delete/modify'];
 
-  aplicarFiltros(ev: Event): void {
+  filter(ev: Event): void {
     const inputValue = (ev.target as HTMLInputElement)?.value;
     this.dataSource.filter = inputValue?.trim()?.toLowerCase();
   }
@@ -71,4 +72,32 @@ export class TableComponent {
       }
     })
   }
+
+  logStudent(student: any) {
+    console.log(student);
+  }
+
+  deleteStudent(student: any) {
+    console.log('TEST DELETE STUDENT');
+    const dialogRef = this.matDialog.open(DeleteStudentDialogComponent, {
+      data: {
+        title: 'Eliminar',
+        message: `¿Estás seguro de eliminar el registro de este alumno? ${student.name1} ${student.name2} ${student.lastName1} ${student.lastName2}`
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        const index = this.dataSource.data.findIndex(s => s.id === student.id);
+        if (index > -1) {
+          this.dataSource.data.splice(index, 1);
+          this.dataSource._updateChangeSubscription();
+        }
+
+        // Call your API to delete the student from the server/database
+        // this.studentService.deleteStudent(student.id).subscribe();
+      }
+    });
+  }
+
 }

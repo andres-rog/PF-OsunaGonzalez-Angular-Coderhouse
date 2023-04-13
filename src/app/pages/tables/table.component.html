@@ -12,7 +12,7 @@
 
 <mat-form-field class="w-full">
   <mat-label>Filter</mat-label>
-  <input matInput (keyup)="aplicarFiltros($event)" placeholder="Ex. ium" #input>
+  <input matInput (keyup)="filter($event)" placeholder="Ex. ium" #input>
 </mat-form-field>
 
 <!--Student Columns-->
@@ -59,7 +59,7 @@
         <mat-icon class="edit-icon">edit</mat-icon>
         Modificar
       </a>
-      <a href="#" class="action-link">
+      <a href="#" class="action-link" (click)="deleteStudent(student); $event.preventDefault()">
         <mat-icon class="delete-icon">delete</mat-icon>
         Eliminar
       </a>
@@ -67,6 +67,6 @@
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  <tr mat-row *matRowDef="let student; columns: displayedColumns;" (click)="logStudent(student)"></tr>
 
 </table>
