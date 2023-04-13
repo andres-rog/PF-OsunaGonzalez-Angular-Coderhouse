@@ -1,20 +1,23 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FullNamePipe } from './full-name.pipe';
+import { FirstNamesPipe } from './firstNames.pipe';
 import { ControlErrorMessagesPipe } from './control-error-messages.pipe';
+import { LastNamesPipe } from './lastNames.pipe';
 
 
 
 @NgModule({
   declarations: [
-    FullNamePipe,
+    FirstNamesPipe,
+    LastNamesPipe,
     ControlErrorMessagesPipe
   ],
   imports: [
     CommonModule
   ],
   exports: [
-    FullNamePipe,
+    FirstNamesPipe,
+    LastNamesPipe,
     ControlErrorMessagesPipe
   ]
 })

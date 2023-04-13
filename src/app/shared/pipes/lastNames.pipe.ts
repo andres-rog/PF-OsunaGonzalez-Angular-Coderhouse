@@ -2,16 +2,16 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { Student } from 'src/app/pages/tables/table.component';
 
 @Pipe({
-  name: 'fullName'
+  name: 'lastNames'
 })
-export class FullNamePipe implements PipeTransform {
+export class LastNamesPipe implements PipeTransform {
 
   transform(value: Student, ...args: unknown[]): unknown {
-    const newValue = `${value.name} ${value.apellido}`;
+    const newValue = `${value.lastName1} ${value.lastName2}`;
     switch (args[0]) {
-      case 'mayuscula':
+      case 'uppercase':
         return newValue.toUpperCase();
-      case 'minuscula':
+      case 'lowercase':
         return newValue.toLowerCase();
       default:
         return newValue;

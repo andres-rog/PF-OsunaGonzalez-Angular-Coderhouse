@@ -5,9 +5,13 @@ import { AbmStudentsComponent } from './abm-students/abm-students.component';
 
 export interface Student {
   id: number;
-  name: string;
-  apellido: string;
-  fecha_registro: Date;
+  name1: string;
+  name2: string;
+  lastName1: string;
+  lastName2: string;
+  phone: string;
+  email: string;
+  registrer_date: Date;
 }
 
 @Component({
@@ -20,21 +24,29 @@ export class TableComponent {
   estudiantes: Student[] = [
     {
       id: 1,
-      name: 'Andres',
-      apellido: 'Osuna',
-      fecha_registro: new Date()
+      name1: 'Andres',
+      name2: 'Roberto',
+      lastName1: 'Osuna',
+      lastName2: 'Gonzalez',
+      phone: '555-555-5555',
+      email: 'Andres.ROG@outlook.com',
+      registrer_date: new Date()
     },
     {
       id: 2,
-      name: 'Roberto',
-      apellido: 'Gonzalez',
-      fecha_registro: new Date()
+      name1: 'Test1',
+      name2: 'Test2',
+      lastName1: 'Test3',
+      lastName2: 'Test4',
+      phone: '123-456-7890',
+      email: 'TEST@outlook.com',
+      registrer_date: new Date()
     }
   ];
 
   dataSource = new MatTableDataSource(this.estudiantes);
 
-  displayedColumns: string[] = ['id', 'fullName', 'fecha_registro'];
+  displayedColumns: string[] = ['id', 'firstNames', 'lastNames', 'phone', 'email', 'registrer_date', 'delete/modify'];
 
   aplicarFiltros(ev: Event): void {
     const inputValue = (ev.target as HTMLInputElement)?.value;

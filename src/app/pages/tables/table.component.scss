@@ -23,3 +23,28 @@
     border-radius: 5px;
   }
 }
+
+.action-link {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 8px;
+  color: inherit;
+  text-decoration: none;
+  color: rgb(0, 110, 255);
+}
+
+.edit-icon {
+  color: blue;
+}
+
+.delete-icon {
+  color: red;
+}
+
+.action-link:hover {
+  text-decoration: underline;
+}
+
+.action-link mat-icon {
+  margin-right: 4px;
+}
