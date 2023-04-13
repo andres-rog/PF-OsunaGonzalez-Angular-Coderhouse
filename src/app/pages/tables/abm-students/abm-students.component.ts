@@ -9,12 +9,20 @@ import { MatDialogRef } from '@angular/material/dialog';
 })
 export class AbmStudentsComponent {
 
-  nameControl = new FormControl('', [Validators.required]);
-  lastNameControl = new FormControl('', [Validators.required]);
+  firstName1Control = new FormControl('', [Validators.required]);
+  firstName2Control = new FormControl('');
+  lastName1Control = new FormControl('', [Validators.required]);
+  lastName2Control = new FormControl('');
+  phoneControl = new FormControl('', [Validators.required]);
+  emailControl = new FormControl('', [Validators.required]);
 
   studentsForm = new FormGroup({
-    nombre: this.nameControl,
-    apellido: this.lastNameControl,
+    firstName1: this.firstName1Control,
+    firstName2: this.firstName2Control,
+    lastName1: this.lastName1Control,
+    lastName2: this.lastName2Control,
+    phone: this.phoneControl,
+    email: this.emailControl
   });
 
   constructor(private dialogRef: MatDialogRef<AbmStudentsComponent>) {}

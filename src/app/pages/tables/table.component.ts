@@ -54,7 +54,7 @@ export class TableComponent {
     this.dataSource.filter = inputValue?.trim()?.toLowerCase();
   }
 
-  constructor(private matDialog: MatDialog) {}
+  constructor(private matDialog: MatDialog) { }
 
 
   openABMStudent(): void {
@@ -78,11 +78,11 @@ export class TableComponent {
   }
 
   deleteStudent(student: any) {
-    console.log('TEST DELETE STUDENT');
     const dialogRef = this.matDialog.open(DeleteStudentDialogComponent, {
       data: {
         title: 'Eliminar',
-        message: `¿Estás seguro de eliminar el registro de este alumno? ${student.name1} ${student.name2} ${student.lastName1} ${student.lastName2}`
+        name: `${student.name1} ${student.name2} ${student.lastName1} ${student.lastName2}`,
+        message: `¿Estás seguro de eliminar el registro de este alumno?`
       }
     });
 
@@ -93,9 +93,6 @@ export class TableComponent {
           this.dataSource.data.splice(index, 1);
           this.dataSource._updateChangeSubscription();
         }
-
-        // Call your API to delete the student from the server/database
-        // this.studentService.deleteStudent(student.id).subscribe();
       }
     });
   }

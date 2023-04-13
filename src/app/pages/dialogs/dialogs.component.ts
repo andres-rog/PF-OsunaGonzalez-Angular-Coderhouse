@@ -19,8 +19,12 @@ export class DialogsComponent {
     const dialog = this.dialogService.open(StudentDialogComponent, {
       data: {
         student: {
-          firstName: 'josue2',
-          lastName: 'baez',
+          firstName1: '',
+          firstName2: '',
+          lastName1: '',
+          lastName2: '',
+          phone: '',
+          email: ''
         }
       }
     });

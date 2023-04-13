@@ -1,0 +1,15 @@
+.name-title {
+  font-weight: 500;
+  color: black;
+}
+
+.input-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.firstInput {
+  margin-right: 10px;
+}

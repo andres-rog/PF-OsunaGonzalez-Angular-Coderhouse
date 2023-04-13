@@ -1,33 +1,74 @@
 <h1 mat-dialog-title>ABM Alumnos</h1>
 <div mat-dialog-content>
   <form class="grid formgrid" [formGroup]="studentsForm">
-    <!-- CONTROL DE NOMBRE -->
 
-    <div class="col-12 field">
-      <mat-form-field class="w-full">
-        <mat-label>Nombre</mat-label>
+    <p class="name-title">Nombres</p>
+    <div class="col-12 field input-row">
+      <mat-form-field class="w-full firstInput">
+        <mat-label>Primer Nombre</mat-label>
         <input
-          [formControl]="nameControl"
+          [formControl]="firstName1Control"
           type="text"
           matInput
         >
-        <mat-error *ngFor="let error of nameControl.errors | keyvalue">{{ error | controlErrorMessages }}</mat-error>
+        <mat-error *ngFor="let error of firstName1Control.errors | keyvalue">{{ error | controlErrorMessages }}</mat-error>
       </mat-form-field>
-    </div>
-
-
-    <!-- CONTROL DE APELLIDO -->
-    <div class="col-12 field">
       <mat-form-field class="w-full">
-        <mat-label>Apellido</mat-label>
+        <mat-label>Segundo Nombre</mat-label>
         <input
-          [formControl]="lastNameControl"
+          [formControl]="firstName2Control"
           type="text"
           matInput
         >
-        <mat-error *ngFor="let error of lastNameControl.errors | keyvalue">{{ error | controlErrorMessages }}</mat-error>
+        <mat-error *ngFor="let error of firstName2Control.errors | keyvalue">{{ error | controlErrorMessages }}</mat-error>
       </mat-form-field>
     </div>
+
+    <p class="name-title">Apellidos</p>
+    <div class="col-12 field input-row">
+      <mat-form-field class="w-full firstInput">
+        <mat-label>Primer Apellido</mat-label>
+        <input
+          [formControl]="lastName1Control"
+          type="text"
+          matInput
+        >
+        <mat-error *ngFor="let error of lastName1Control.errors | keyvalue">{{ error | controlErrorMessages }}</mat-error>
+      </mat-form-field>
+      <mat-form-field class="w-full">
+        <mat-label>Segundo Apellido</mat-label>
+        <input
+          [formControl]="lastName2Control"
+          type="text"
+          matInput
+        >
+        <mat-error *ngFor="let error of lastName2Control.errors | keyvalue">{{ error | controlErrorMessages }}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <p class="name-title">Contacto</p>
+    <div class="col-12 field input-row">
+      <mat-form-field class="w-full firstInput">
+        <mat-label>Telefono</mat-label>
+        <input
+          [formControl]="phoneControl"
+          type="text"
+          matInput
+        >
+        <mat-error *ngFor="let error of phoneControl.errors | keyvalue">{{ error | controlErrorMessages }}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="w-full">
+        <mat-label>Email</mat-label>
+        <input
+          [formControl]="emailControl"
+          type="text"
+          matInput
+        >
+        <mat-error *ngFor="let error of emailControl.errors | keyvalue">{{ error | controlErrorMessages }}</mat-error>
+      </mat-form-field>
+    </div>
+
   </form>
 </div>
 

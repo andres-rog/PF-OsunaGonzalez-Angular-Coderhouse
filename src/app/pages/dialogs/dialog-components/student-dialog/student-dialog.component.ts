@@ -3,8 +3,12 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 interface DialogData {
   student: {
-    firstName: string;
-    lastName: string;
+    firstName1: string;
+    firstName2: string;
+    lastName1: string;
+    lastName2: string;
+    phone: string;
+    email: string;
   }
 }
 
