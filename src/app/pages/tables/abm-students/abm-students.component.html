@@ -54,6 +54,8 @@
           [formControl]="phoneControl"
           type="text"
           matInput
+          type="number"
+          class = "no-spinners"
         >
         <mat-error *ngFor="let error of phoneControl.errors | keyvalue">{{ error | controlErrorMessages }}</mat-error>
       </mat-form-field>
