@@ -1,5 +1,5 @@
-import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, Inject, Input} from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 interface DialogData {
   student: {
@@ -18,7 +18,15 @@ interface DialogData {
   styleUrls: ['./student-dialog.component.scss']
 })
 export class StudentDialogComponent {
+  @Input() action: 'create' | 'update';
+  @Input() studentData: any;
+
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,
-  ) {}
+    public dialogRef: MatDialogRef<StudentDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {
+    this.action = data.action;
+    this.studentData = data.student;
+  }
+
 }

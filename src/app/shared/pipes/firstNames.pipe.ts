@@ -7,7 +7,7 @@ import { Student } from 'src/app/pages/tables/table.component';
 export class FirstNamesPipe implements PipeTransform {
 
   transform(value: Student, ...args: unknown[]): unknown {
-    const newValue = `${value.name1} ${value.name2}`;
+    const newValue = `${value.firstName1} ${value.firstName2}`;
     switch (args[0]) {
       case 'uppercase':
         return newValue.toUpperCase();

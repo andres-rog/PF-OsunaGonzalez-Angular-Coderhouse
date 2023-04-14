@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-abm-students',
@@ -9,6 +9,8 @@ import { MatDialogRef } from '@angular/material/dialog';
 })
 export class AbmStudentsComponent {
 
+  idControl = new FormControl();
+  register_dateControl = new FormControl();
   firstName1Control = new FormControl('', [Validators.required]);
   firstName2Control = new FormControl('');
   lastName1Control = new FormControl('', [Validators.required]);
@@ -17,6 +19,8 @@ export class AbmStudentsComponent {
   emailControl = new FormControl('', [Validators.required]);
 
   studentsForm = new FormGroup({
+    id: this.idControl,
+    register_date: this.register_dateControl,
     firstName1: this.firstName1Control,
     firstName2: this.firstName2Control,
     lastName1: this.lastName1Control,
@@ -25,12 +29,30 @@ export class AbmStudentsComponent {
     email: this.emailControl
   });
 
-  constructor(private dialogRef: MatDialogRef<AbmStudentsComponent>) {}
+  constructor(
+    private dialogRef: MatDialogRef<AbmStudentsComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {
+    if (data.action === 'update') {
+      this.setStudentData(data.student);
+    }
+  }
 
+  setStudentData(student: any) {
+    console.log(student);
+    this.idControl.setValue(student.id);
+    this.register_dateControl.setValue(student.register_date);
+    this.firstName1Control.setValue(student.firstName1);
+    this.firstName2Control.setValue(student.firstName2);
+    this.lastName1Control.setValue(student.lastName1);
+    this.lastName2Control.setValue(student.lastName2);
+    this.phoneControl.setValue(student.phone);
+    this.emailControl.setValue(student.email);
+  }
 
   guardar(): void {
     if (this.studentsForm.valid) {
-      this.dialogRef.close(this.studentsForm.value)
+      this.dialogRef.close(this.studentsForm.value);
     } else {
       this.studentsForm.markAllAsTouched();
     }

@@ -6,13 +6,13 @@ import { DeleteStudentDialogComponent } from '../dialogs/dialog-components/delet
 
 export interface Student {
   id: number;
-  name1: string;
-  name2: string;
+  firstName1: string;
+  firstName2: string;
   lastName1: string;
   lastName2: string;
   phone: string;
   email: string;
-  registrer_date: Date;
+  register_date: Date;
 }
 
 @Component({
@@ -25,29 +25,29 @@ export class TableComponent {
   student: Student[] = [
     {
       id: 1,
-      name1: 'Andres',
-      name2: 'Roberto',
+      firstName1: 'Andres',
+      firstName2: 'Roberto',
       lastName1: 'Osuna',
       lastName2: 'Gonzalez',
       phone: '555-555-5555',
       email: 'Andres.ROG@outlook.com',
-      registrer_date: new Date()
+      register_date: new Date()
     },
     {
       id: 2,
-      name1: 'Test1',
-      name2: 'Test2',
+      firstName1: 'Test1',
+      firstName2: 'Test2',
       lastName1: 'Test3',
       lastName2: 'Test4',
       phone: '123-456-7890',
       email: 'TEST@outlook.com',
-      registrer_date: new Date()
+      register_date: new Date()
     }
   ];
 
   dataSource = new MatTableDataSource(this.student);
 
-  displayedColumns: string[] = ['id', 'firstNames', 'lastNames', 'phone', 'email', 'registrer_date', 'delete/modify'];
+  displayedColumns: string[] = ['id', 'firstNames', 'lastNames', 'phone', 'email', 'register_date', 'delete/modify'];
 
   filter(ev: Event): void {
     const inputValue = (ev.target as HTMLInputElement)?.value;
@@ -58,14 +58,19 @@ export class TableComponent {
 
 
   openABMStudent(): void {
-    const dialog = this.matDialog.open(AbmStudentsComponent)
-    dialog.afterClosed().subscribe((valor) => {
-      if (valor) {
+    const dialog = this.matDialog.open(AbmStudentsComponent, {
+      data: {
+        action: 'create'
+      }
+    });
+
+    dialog.afterClosed().subscribe((value) => {
+      if (value) {
         this.dataSource.data = [
           ...this.dataSource.data,
           {
-            ...valor,
-            fecha_registro: new Date(),
+            ...value,
+            register_date: new Date(),
             id: this.dataSource.data.length + 1,
           }
         ];
@@ -81,7 +86,7 @@ export class TableComponent {
     const dialogRef = this.matDialog.open(DeleteStudentDialogComponent, {
       data: {
         title: 'Eliminar',
-        name: `${student.name1} ${student.name2} ${student.lastName1} ${student.lastName2}`,
+        name: `${student.firstName1} ${student.firstName2} ${student.lastName1} ${student.lastName2}`,
         message: `¿Estás seguro de eliminar el registro de este alumno?`
       }
     });
@@ -91,6 +96,26 @@ export class TableComponent {
         const index = this.dataSource.data.findIndex(s => s.id === student.id);
         if (index > -1) {
           this.dataSource.data.splice(index, 1);
+          this.dataSource._updateChangeSubscription();
+        }
+      }
+    });
+  }
+
+  modifyStudent(student: any) {
+    const dialogRef = this.matDialog.open(AbmStudentsComponent, {
+      data: {
+        action: 'update',
+        student: student
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        const index = this.dataSource.data.findIndex(s => s.id === result.id);
+        if (index > -1) {
+          console.log(result);
+          this.dataSource.data[index] = result;
           this.dataSource._updateChangeSubscription();
         }
       }
