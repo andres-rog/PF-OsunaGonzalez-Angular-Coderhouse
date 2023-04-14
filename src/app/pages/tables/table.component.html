@@ -26,20 +26,22 @@
   <ng-container matColumnDef="firstNames">
     <th mat-header-cell *matHeaderCellDef [ngStyle]="{'font-size': '20px'}">Nombres</th>
     <td mat-cell *matCellDef="let student">
-      {{student | firstNames : 'mayuscula': 'cualquiercosa' }}
+      {{student | firstNames : 'uppercase': '' }}
     </td>
   </ng-container>
 
   <ng-container matColumnDef="lastNames">
     <th mat-header-cell *matHeaderCellDef [ngStyle]="{'font-size': '20px'}">Apellidos</th>
     <td mat-cell *matCellDef="let student">
-      {{student | lastNames : 'mayuscula': 'cualquiercosa' }}
+      {{student | lastNames : 'uppercase': '' }}
     </td>
   </ng-container>
 
   <ng-container matColumnDef="phone">
     <th mat-header-cell *matHeaderCellDef [ngStyle]="{'font-size': '20px'}">Telefono</th>
-    <td mat-cell *matCellDef="let student"> {{student.phone}} </td>
+    <td mat-cell *matCellDef="let student">
+      {{student | phonePipe }}
+    </td>
   </ng-container>
 
   <ng-container matColumnDef="email">

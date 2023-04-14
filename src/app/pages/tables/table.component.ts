@@ -29,7 +29,7 @@ export class TableComponent {
       firstName2: 'Roberto',
       lastName1: 'Osuna',
       lastName2: 'Gonzalez',
-      phone: '555-555-5555',
+      phone: '5555555555',
       email: 'Andres.ROG@outlook.com',
       register_date: new Date()
     },
@@ -39,7 +39,7 @@ export class TableComponent {
       firstName2: 'Test2',
       lastName1: 'Test3',
       lastName2: 'Test4',
-      phone: '123-456-7890',
+      phone: '1234567890',
       email: 'TEST@outlook.com',
       register_date: new Date()
     }

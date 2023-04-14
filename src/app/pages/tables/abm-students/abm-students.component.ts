@@ -11,12 +11,12 @@ export class AbmStudentsComponent {
 
   idControl = new FormControl();
   register_dateControl = new FormControl();
-  firstName1Control = new FormControl('', [Validators.required]);
-  firstName2Control = new FormControl('');
-  lastName1Control = new FormControl('', [Validators.required]);
-  lastName2Control = new FormControl('');
-  phoneControl = new FormControl('', [Validators.required]);
-  emailControl = new FormControl('', [Validators.required]);
+  firstName1Control = new FormControl('', [Validators.required, Validators.maxLength(30)]);
+  firstName2Control = new FormControl('',[Validators.maxLength(30)]);
+  lastName1Control = new FormControl('', [Validators.required, Validators.maxLength(30)]);
+  lastName2Control = new FormControl('', [Validators.maxLength(30)]);
+  phoneControl = new FormControl('', [Validators.required, Validators.maxLength(10), Validators.minLength(10)]);
+  emailControl = new FormControl('', [Validators.required, Validators.email]);
 
   studentsForm = new FormGroup({
     id: this.idControl,

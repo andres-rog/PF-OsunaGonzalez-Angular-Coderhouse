@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FirstNamesPipe } from './firstNames.pipe';
 import { ControlErrorMessagesPipe } from './control-error-messages.pipe';
 import { LastNamesPipe } from './lastNames.pipe';
+import { PhonePipe } from './phone.pipe';
 
 
 
@@ -10,6 +11,7 @@ import { LastNamesPipe } from './lastNames.pipe';
   declarations: [
     FirstNamesPipe,
     LastNamesPipe,
+    PhonePipe,
     ControlErrorMessagesPipe
   ],
   imports: [
@@ -18,6 +20,7 @@ import { LastNamesPipe } from './lastNames.pipe';
   exports: [
     FirstNamesPipe,
     LastNamesPipe,
+    PhonePipe,
     ControlErrorMessagesPipe
   ]
 })
