@@ -11,6 +11,7 @@ import { AbmStudentsComponent } from './abm-students/abm-students.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DialogsModule } from '../dialogs/dialogs.module';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { DialogsModule } from '../dialogs/dialogs.module';
     MatInputModule,
     MatButtonModule,
     ReactiveFormsModule,
-    DialogsModule
+    DialogsModule,
+    MatCheckboxModule,
   ],
   exports: [
     TableComponent

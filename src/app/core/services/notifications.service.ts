@@ -1,5 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { StudentEventsService } from './student-events.service';
+import { LoginEventService } from './login-events.service';
 import { Subscription } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -11,9 +12,13 @@ export class NotificationsService implements OnDestroy {
 
   constructor(
     private studentEventsService: StudentEventsService,
+    private loginEventsService: LoginEventService,
     private snackBar: MatSnackBar
   ) {
     this.subscription = this.studentEventsService.studentCreated$.subscribe((message: string) => {
+      this.showNotification(message);
+    });
+    this.subscription = this.loginEventsService.login$.subscribe((message: string) => {
       this.showNotification(message);
     });
   }

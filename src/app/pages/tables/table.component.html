@@ -14,6 +14,7 @@
   <mat-label>Filtrar (ejemplo: Nombre de alumno)</mat-label>
   <input matInput (keyup)="filter($event)" placeholder="Ex. ium" #input>
 </mat-form-field>
+<mat-checkbox (change)="toggleSortByName($event.checked)">Ordenar por nombres</mat-checkbox>
 
 <!--Student Columns-->
 <table mat-table [dataSource]="dataSource">

@@ -4,6 +4,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { AbmStudentsComponent } from './abm-students/abm-students.component';
 import { DeleteStudentDialogComponent } from '../dialogs/dialog-components/delete-student-dialog/delete-student-dialog.component';
 import { NotificationsService } from 'src/app/core/services/notifications.service';
+import { BehaviorSubject } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 export interface Student {
   id: number;
@@ -22,6 +24,8 @@ export interface Student {
   styleUrls: ['./table.component.scss']
 })
 export class TableComponent {
+
+  private sortByNames = new BehaviorSubject<boolean>(false);
 
   student: Student[] = [
     {
@@ -58,33 +62,53 @@ export class TableComponent {
   constructor(
     private matDialog: MatDialog,
     private notificationService: NotificationsService
-    ) { }
+    ) {
+
+      this.sortByNames
+      .pipe(
+        map(sortByName => {
+          return this.student.slice().sort((a, b) => {
+            if (sortByName) {
+              const aCompleteStudentName = `${a.firstName1} ${a.firstName2} ${a.lastName1} ${a.lastName2}`;
+              const bCompleteStudentName = `${b.firstName1} ${b.firstName2} ${b.lastName1} ${b.lastName2}`;
+              return aCompleteStudentName.localeCompare(bCompleteStudentName);
+            }
+            return 0;
+          });
+        })
+      )
+      .subscribe(sortedStudents => {
+        this.dataSource.data = sortedStudents;
+      });
+
+     }
 
 
-  openABMStudent(): void {
-    const dialog = this.matDialog.open(AbmStudentsComponent, {
-      data: {
-        action: 'create'
-      }
-    });
+     openABMStudent(): void {
+      const dialog = this.matDialog.open(AbmStudentsComponent, {
+        data: {
+          action: 'create'
+        }
+      });
 
-    dialog.componentInstance.studentCreated.subscribe(() => {
-      this.notificationService.showNotification('Student created successfully');
-    });
+      dialog.componentInstance.studentCreated.subscribe(() => {
+        this.notificationService.showNotification('Student created successfully');
+      });
 
-    dialog.afterClosed().subscribe((value) => {
-      if (value) {
-        this.dataSource.data = [
-          ...this.dataSource.data,
-          {
+      dialog.afterClosed().subscribe((value) => {
+        if (value) {
+          const newStudent = {
             ...value,
             register_date: new Date(),
             id: this.dataSource.data.length + 1,
-          }
-        ];
-      }
-    })
-  }
+          };
+
+          // Update student array and sort again
+          this.student.push(newStudent);
+          this.sortByNames.next(this.sortByNames.value);
+        }
+      });
+    }
 
   logStudent(student: any) {
     console.log(student);
@@ -105,6 +129,10 @@ export class TableComponent {
         if (index > -1) {
           this.dataSource.data.splice(index, 1);
           this.dataSource._updateChangeSubscription();
+
+          // Update student array and sort again
+          this.student.splice(index, 1);
+          this.sortByNames.next(this.sortByNames.value);
         }
       }
     });
@@ -125,9 +153,17 @@ export class TableComponent {
           console.log(result);
           this.dataSource.data[index] = result;
           this.dataSource._updateChangeSubscription();
+
+          // Update student array and sort again
+          this.student[index] = result;
+          this.sortByNames.next(this.sortByNames.value);
         }
       }
     });
+  }
+
+  toggleSortByName(checked: boolean): void {
+    this.sortByNames.next(checked);
   }
 
 }
