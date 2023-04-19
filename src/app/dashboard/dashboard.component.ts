@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { enviroment } from 'src/environments/environments';
+import { MatDialog } from '@angular/material/dialog';
+import { LoginComponent } from '../pages/dialogs/dialog-components/login/login/login.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,5 +9,16 @@ import { enviroment } from 'src/environments/environments';
 })
 export class DashboardComponent {
   showFiller = false;
-  isProd = enviroment.isProduction;
+
+  constructor(
+    private dialog: MatDialog
+  ) { }
+
+  openLoginDialog(): void {
+    const dialogRef = this.dialog.open(LoginComponent, {});
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('LoginDialog Closed', result);
+    });
+  }
 }

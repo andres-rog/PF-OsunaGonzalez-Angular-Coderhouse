@@ -1,0 +1,32 @@
+<h1 mat-dialog-title>Login</h1>
+<br>
+<div mat-dialog-content>
+  <form class="grid formgrid" [formGroup]="loginForm">
+
+    <div class="col-12 field">
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Username</mat-label>
+        <input matInput formControlName="username" required>
+        <mat-error *ngIf="loginForm.controls['username'].invalid">
+          Please enter a valid username
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="col-12 field">
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" formControlName="password" required>
+        <mat-error *ngIf="loginForm.controls['password'].invalid">
+          Please enter a valid password
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+  </form>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button [disabled]="loginForm.invalid" (click)="onLoginClick()">Login</button>
+</div>

@@ -1,6 +1,8 @@
 import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { StudentEventsService } from 'src/app/core/services/student-events.service';
+import { EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-abm-students',
@@ -8,6 +10,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrls: ['./abm-students.component.scss']
 })
 export class AbmStudentsComponent {
+
+  studentCreated = new EventEmitter<void>();
 
   idControl = new FormControl();
   register_dateControl = new FormControl();
@@ -31,7 +35,8 @@ export class AbmStudentsComponent {
 
   constructor(
     private dialogRef: MatDialogRef<AbmStudentsComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private studentEventsService: StudentEventsService
   ) {
     if (data.action === 'update') {
       this.setStudentData(data.student);
@@ -50,9 +55,10 @@ export class AbmStudentsComponent {
     this.emailControl.setValue(student.email);
   }
 
-  guardar(): void {
+  createStudent(): void {
     if (this.studentsForm.valid) {
       this.dialogRef.close(this.studentsForm.value);
+      this.studentEventsService.notifyStudentCreated('ESTUDIANTE CREADO CON EXITO...');
     } else {
       this.studentsForm.markAllAsTouched();
     }

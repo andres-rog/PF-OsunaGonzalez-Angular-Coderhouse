@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { AbmStudentsComponent } from './abm-students/abm-students.component';
 import { DeleteStudentDialogComponent } from '../dialogs/dialog-components/delete-student-dialog/delete-student-dialog.component';
+import { NotificationsService } from 'src/app/core/services/notifications.service';
 
 export interface Student {
   id: number;
@@ -54,7 +55,10 @@ export class TableComponent {
     this.dataSource.filter = inputValue?.trim()?.toLowerCase();
   }
 
-  constructor(private matDialog: MatDialog) { }
+  constructor(
+    private matDialog: MatDialog,
+    private notificationService: NotificationsService
+    ) { }
 
 
   openABMStudent(): void {
@@ -62,6 +66,10 @@ export class TableComponent {
       data: {
         action: 'create'
       }
+    });
+
+    dialog.componentInstance.studentCreated.subscribe(() => {
+      this.notificationService.showNotification('Student created successfully');
     });
 
     dialog.afterClosed().subscribe((value) => {

@@ -1,21 +1,29 @@
 <mat-drawer-container class="dashboard-container" autosize>
 
   <!-- Sidebar -->
-  <mat-drawer #drawer class="dashboard-sidenav" mode="side">
-    <span class="sidenav-title">Elije una opcion</span>
-    <mat-divider></mat-divider>
-    <br>
-    <section class = "sidenav-buttons">
-      <button mat-button color="primary">
-        Alumnos
-      </button>
-      <button mat-button disabled>
-        Profesores
-      </button>
-      <button mat-button disabled>
-        Clases
-      </button>
-    </section>
+  <mat-drawer #drawer class="dashboard-sidenav" mode="side" style="overflow-y: hidden;">
+    <div style="display: flex; flex-direction: column; height: 100%;">
+      <span class="sidenav-title">Elije una opcion</span>
+      <mat-divider></mat-divider>
+      <div class="sidenav-container" style="flex: 1; overflow-y: auto; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between;">
+        <section class="sidenav-buttons">
+          <button mat-button color="primary">
+            Alumnos
+          </button>
+          <button mat-button disabled>
+            Profesores
+          </button>
+          <button mat-button disabled>
+            Clases
+          </button>
+        </section>
+        <section class="sidenav-login">
+          <div style="display: flex; justify-content: center;">
+            <button mat-raised-button color="accent" (click)="openLoginDialog()">Login</button>
+          </div>
+        </section>
+      </div>
+    </div>
   </mat-drawer>
 
   <!--Main-->
