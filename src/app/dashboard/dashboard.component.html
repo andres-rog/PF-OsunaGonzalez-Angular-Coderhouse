@@ -1,11 +1,10 @@
 <mat-drawer-container class="dashboard-container" autosize>
-
   <!-- Sidebar -->
-  <mat-drawer #drawer class="dashboard-sidenav" mode="side" style="overflow-y: hidden;">
-    <div style="display: flex; flex-direction: column; height: 100%;">
+  <mat-drawer #drawer class="dashboard-sidenav" mode="side">
+    <div class="sidenav-wrapper">
       <span class="sidenav-title">Elije una opcion</span>
       <mat-divider></mat-divider>
-      <div class="sidenav-container" style="flex: 1; overflow-y: auto; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between;">
+      <div class="sidenav-container">
         <section class="sidenav-buttons">
           <button mat-button color="primary">
             Alumnos
@@ -18,14 +17,13 @@
           </button>
         </section>
         <section class="sidenav-login">
-          <div style="display: flex; justify-content: center;">
+          <div class="login-button-container">
             <button mat-raised-button color="accent" (click)="openLoginDialog()">Login</button>
           </div>
         </section>
       </div>
     </div>
   </mat-drawer>
-
   <!--Main-->
   <div class="dashboard-sidenav-content">
     <!-- Toolbar  -->
@@ -40,7 +38,6 @@
       </button>
       <span>ABM de Alumnos</span>
     </mat-toolbar>
-
     <!-- Main Content -->
     <main>
       <app-table></app-table>

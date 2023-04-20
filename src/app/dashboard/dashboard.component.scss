@@ -10,6 +10,26 @@
 
 .dashboard-sidenav {
   padding: 20px;
+  overflow-y: hidden;
+}
+
+.sidenav-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.sidenav-title {
+  font-size: 1.5em;
+}
+
+.sidenav-container {
+  flex: 1;
+  overflow-y: hidden;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .sidenav-buttons {
@@ -18,6 +38,9 @@
   gap: 10px;
 }
 
-.sidenav-title {
-  font-size: 1.5em;
+.sidenav-login {
+  .login-button-container {
+    display: flex;
+    justify-content: center;
+  }
 }
