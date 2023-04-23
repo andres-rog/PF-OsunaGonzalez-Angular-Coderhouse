@@ -14,6 +14,7 @@
   <mat-label>Filtrar (ejemplo: Nombre de alumno)</mat-label>
   <input matInput (keyup)="filter($event)" placeholder="Ex. ium" #input>
 </mat-form-field>
+<h4>Cantidad de alumnos: {{totalStudents$ | async}}</h4>
 <mat-checkbox (change)="toggleSortByName($event.checked)">Ordenar por nombres</mat-checkbox>
 
 <!--Student Columns-->

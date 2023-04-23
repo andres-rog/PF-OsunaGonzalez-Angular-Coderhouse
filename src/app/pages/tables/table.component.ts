@@ -6,6 +6,7 @@ import { DeleteStudentDialogComponent } from '../dialogs/dialog-components/delet
 import { NotificationsService } from 'src/app/core/services/notifications.service';
 import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { StudentEventsService } from 'src/app/core/services/student-events.service';
 
 export interface Student {
   id: number;
@@ -26,6 +27,8 @@ export interface Student {
 export class TableComponent {
 
   private sortByNames = new BehaviorSubject<boolean>(false);
+  totalStudents$ = this.studentEventsService.getTotalStudents();
+
 
   student: Student[] = [
     {
@@ -61,7 +64,8 @@ export class TableComponent {
 
   constructor(
     private matDialog: MatDialog,
-    private notificationService: NotificationsService
+    private notificationService: NotificationsService,
+    private studentEventsService: StudentEventsService
     ) {
 
       this.sortByNames
@@ -81,6 +85,8 @@ export class TableComponent {
         this.dataSource.data = sortedStudents;
       });
 
+      // Initialize totalStudents value
+      this.studentEventsService.updateTotalStudents(this.dataSource.data.length);
      }
 
 
@@ -96,6 +102,7 @@ export class TableComponent {
       });
 
       dialog.afterClosed().subscribe((value) => {
+        console.log(value);
         if (value) {
           const newStudent = {
             ...value,
@@ -106,6 +113,7 @@ export class TableComponent {
           // Update student array and sort again
           this.student.push(newStudent);
           this.sortByNames.next(this.sortByNames.value);
+          this.studentEventsService.updateTotalStudents(this.dataSource.data.length);
         }
       });
     }
@@ -127,12 +135,9 @@ export class TableComponent {
       if (result) {
         const index = this.dataSource.data.findIndex(s => s.id === student.id);
         if (index > -1) {
-          this.dataSource.data.splice(index, 1);
-          this.dataSource._updateChangeSubscription();
-
-          // Update student array and sort again
           this.student.splice(index, 1);
           this.sortByNames.next(this.sortByNames.value);
+          this.studentEventsService.updateTotalStudents(this.student.length);
         }
       }
     });
