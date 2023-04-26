@@ -16,8 +16,8 @@ const links: NavItem[] = [
         icon: 'person'
     },
     {
-        path: 'classes',
-        title: 'Clases',
+        path: 'subjects',
+        title: 'Asignaturas',
         icon: 'person'
     }
 ]

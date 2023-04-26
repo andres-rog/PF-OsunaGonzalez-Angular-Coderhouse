@@ -21,10 +21,10 @@ export interface Student {
 
 @Component({
   selector: 'app-table',
-  templateUrl: './table.component.html',
-  styleUrls: ['./table.component.scss']
+  templateUrl: './studentTable.component.html',
+  styleUrls: ['./studentTable.component.scss']
 })
-export class TableComponent {
+export class StudentTableComponent {
 
   private sortByNames = new BehaviorSubject<boolean>(false);
   totalStudents$ = this.studentEventsService.getTotalStudents();

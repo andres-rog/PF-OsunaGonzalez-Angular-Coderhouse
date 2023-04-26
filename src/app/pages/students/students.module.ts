@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TableComponent } from './table.component';
+import { StudentTableComponent } from './studentTable.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -15,7 +15,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
-    TableComponent,
+    StudentTableComponent,
     AbmStudentsComponent
   ],
   imports: [
@@ -32,7 +32,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatCheckboxModule,
   ],
   exports: [
-    TableComponent
+    StudentTableComponent
   ]
 })
-export class TableModule { }
+export class StudentsModule { }

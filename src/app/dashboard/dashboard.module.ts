@@ -7,9 +7,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { DialogsModule } from '../pages/dialogs/dialogs.module';
 import {MatDividerModule} from '@angular/material/divider';
-import { TableModule } from '../pages/tables/table.module';
 import { RouterModule } from '@angular/router';
 import { MatListModule} from '@angular/material/list';
+import { StudentsModule } from '../pages/students/students.module';
+import { InstructorsModule } from '../pages/instructors/instructors.module';
+import { ClassSubjectsModule } from '../pages/classSubjects/class-subjects.module';
 
 @NgModule({
   declarations: [
@@ -22,10 +24,12 @@ import { MatListModule} from '@angular/material/list';
     MatIconModule,
     MatButtonModule,
     DialogsModule,
-    TableModule,
     MatDividerModule,
     RouterModule,
-    MatListModule
+    MatListModule,
+    StudentsModule,
+    InstructorsModule,
+    ClassSubjectsModule
   ],
   exports: [
     DashboardComponent

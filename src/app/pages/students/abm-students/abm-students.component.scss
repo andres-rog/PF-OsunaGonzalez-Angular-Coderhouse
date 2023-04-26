@@ -1,0 +1,26 @@
+.name-title {
+  font-weight: 500;
+  color: black;
+}
+
+.input-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.firstInput {
+  margin-right: 10px;
+}
+
+//Remove the spinner from the field
+.no-spinners::-webkit-inner-spin-button,
+.no-spinners::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.no-spinners {
+  -moz-appearance: textfield;
+}

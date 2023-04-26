@@ -1,16 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
-import { Student } from 'src/app/pages/students/studentTable.component';
-
+import { ClassSubject } from 'src/app/pages/classSubjects/class-subjects-table.component';
 
 @Injectable({
   providedIn: 'root'
 })
-export class StudentEventsService {
-  studentCreated$: Subject<string> = new Subject();
-  totalStudents = new BehaviorSubject<number>(0);
-  private students$ = new BehaviorSubject<Student[]>([
+export class ClassSubjectEventsService {
+  classSubjectCreated$: Subject<string> = new Subject();
+  totalClassSubjects = new BehaviorSubject<number>(0);
+  private classSubjects$ = new BehaviorSubject<ClassSubject[]>([
     {
       id: 1,
       firstName1: 'Andres',
@@ -35,27 +34,27 @@ export class StudentEventsService {
 
   constructor() { }
 
-  notifyStudentCreated(message: string): void {
-    this.studentCreated$.next(message);
+  notifyClassSubjectCreated(message: string): void {
+    this.classSubjectCreated$.next(message);
   }
 
   
-  getTotalStudents() {
-    return this.totalStudents.asObservable();
+  getTotalClassSubjects() {
+    return this.totalClassSubjects.asObservable();
   }
 
   //Fake load
-  async updateTotalStudents(count: number) {
+  async updateTotalClassSubjects(count: number) {
     return new Promise((resolve) => {
       setTimeout(() => {
-        this.totalStudents.next(count);
+        this.totalClassSubjects.next(count);
         resolve(true);
       }, 3000);
     });
   }
 
-  getStudents(): Observable<Student[]> {
-    return this.students$.asObservable();
+  getClassSubjects(): Observable<ClassSubject[]> {
+    return this.classSubjects$.asObservable();
   }
   
 }

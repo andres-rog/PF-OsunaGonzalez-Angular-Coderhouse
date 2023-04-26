@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { TableComponent } from './pages/tables/table.component';
+import { StudentTableComponent } from './pages/students/studentTable.component';
+import { InstructorTableComponent } from './pages/instructors/instructors-table.component';
+import { ClassSubjectTableComponent } from './pages/classSubjects/class-subjects-table.component';
 
 const routes: Routes = [
   {
@@ -10,15 +12,15 @@ const routes: Routes = [
     children: [
       {
         path: 'students',
-        component: TableComponent 
+        component: StudentTableComponent //Students
       },
       {
         path: 'instructors',
-        component: TableComponent //InstructorTableComponent
+        component: InstructorTableComponent //Instructor
       },
       {
-        path: 'classes',
-        component: TableComponent //ClassTableComponent
+        path: 'subjects',
+        component: ClassSubjectTableComponent //Subjects
       }
     ]
   },

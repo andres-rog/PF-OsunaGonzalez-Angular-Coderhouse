@@ -1,0 +1,82 @@
+<div class="mb-3">
+    <section class="table-header">
+      <p class="table-title">Instructores:</p>
+      <button (click)="openABMInstructor()" color="primary" mat-flat-button>
+        <mat-icon>add</mat-icon>
+        Agregar Tutor
+      </button>
+    </section>
+    <br>
+    <hr>
+  </div>
+  
+  <mat-form-field class="w-full">
+    <mat-label>Filtrar (ejemplo: Nombre del tutor)</mat-label>
+    <input matInput (keyup)="filter($event)" placeholder="Ex. ium" #input>
+  </mat-form-field>
+  <h4>Cantidad de instructores: {{totalInstructors$ | async}}</h4>
+  <mat-checkbox (change)="toggleSortByName($event.checked)">Ordenar por nombres</mat-checkbox>
+  
+  <!--Instructor Columns-->
+  <table mat-table [dataSource]="dataSource">
+  
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef [ngStyle]="{'font-size': '20px'}">Id</th>
+      <td mat-cell *matCellDef="let instructor"> {{instructor.id}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="firstNames">
+      <th mat-header-cell *matHeaderCellDef [ngStyle]="{'font-size': '20px'}">Nombres</th>
+      <td mat-cell *matCellDef="let instructor">
+        {{instructor | firstNames : 'uppercase': '' }}
+      </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="lastNames">
+      <th mat-header-cell *matHeaderCellDef [ngStyle]="{'font-size': '20px'}">Apellidos</th>
+      <td mat-cell *matCellDef="let instructor">
+        {{instructor | lastNames : 'uppercase': '' }}
+      </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="phone">
+      <th mat-header-cell *matHeaderCellDef [ngStyle]="{'font-size': '20px'}">Telefono</th>
+      <td mat-cell *matCellDef="let instructor">
+        {{instructor | phonePipe }}
+      </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef [ngStyle]="{'font-size': '20px'}">Email</th>
+      <td mat-cell *matCellDef="let instructor"> {{instructor.email}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="register_date">
+      <th mat-header-cell *matHeaderCellDef [ngStyle]="{'font-size': '20px'}">Fecha de registro</th>
+      <td mat-cell *matCellDef="let instructor"> {{instructor.register_date | date: 'dd/MM/YYYY'  }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="expertise">
+        <th mat-header-cell *matHeaderCellDef [ngStyle]="{'font-size': '20px'}">Especialidad</th>
+        <td mat-cell *matCellDef="let instructor"> {{instructor.expertise}} </td>
+      </ng-container>
+  
+    <ng-container matColumnDef="delete/modify">
+      <th mat-header-cell *matHeaderCellDef [ngStyle]="{'font-size': '20px'}">Acciones</th>
+      <td mat-cell *matCellDef="let instructor">
+        <a href="#" class="action-link" (click)="modifyInstructor(instructor); $event.preventDefault()">
+          <mat-icon class="edit-icon">edit</mat-icon>
+          Modificar
+        </a>
+        <a href="#" class="action-link" (click)="deleteInstructor(instructor); $event.preventDefault()">
+          <mat-icon class="delete-icon">delete</mat-icon>
+          Eliminar
+        </a>
+      </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let instructor; columns: displayedColumns;" (click)="logInstructor(instructor)"></tr>
+  
+  </table>
+  
