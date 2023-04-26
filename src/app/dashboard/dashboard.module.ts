@@ -8,6 +8,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { DialogsModule } from '../pages/dialogs/dialogs.module';
 import {MatDividerModule} from '@angular/material/divider';
 import { TableModule } from '../pages/tables/table.module';
+import { RouterModule } from '@angular/router';
+import { MatListModule} from '@angular/material/list';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { TableModule } from '../pages/tables/table.module';
     MatButtonModule,
     DialogsModule,
     TableModule,
-    MatDividerModule
+    MatDividerModule,
+    RouterModule,
+    MatListModule
   ],
   exports: [
     DashboardComponent

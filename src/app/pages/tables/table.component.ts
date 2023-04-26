@@ -29,31 +29,7 @@ export class TableComponent {
   private sortByNames = new BehaviorSubject<boolean>(false);
   totalStudents$ = this.studentEventsService.getTotalStudents();
 
-
-  student: Student[] = [
-    {
-      id: 1,
-      firstName1: 'Andres',
-      firstName2: 'Roberto',
-      lastName1: 'Osuna',
-      lastName2: 'Gonzalez',
-      phone: '5555555555',
-      email: 'Andres.ROG@outlook.com',
-      register_date: new Date()
-    },
-    {
-      id: 2,
-      firstName1: 'Test1',
-      firstName2: 'Test2',
-      lastName1: 'Test3',
-      lastName2: 'Test4',
-      phone: '1234567890',
-      email: 'TEST@outlook.com',
-      register_date: new Date()
-    }
-  ];
-
-  dataSource = new MatTableDataSource(this.student);
+  dataSource = new MatTableDataSource<Student>();
 
   displayedColumns: string[] = ['id', 'firstNames', 'lastNames', 'phone', 'email', 'register_date', 'delete/modify'];
 
@@ -68,10 +44,14 @@ export class TableComponent {
     private studentEventsService: StudentEventsService
     ) {
 
+      this.studentEventsService.getStudents().subscribe((student) =>{
+        this.dataSource.data = student;
+      })
+
       this.sortByNames
       .pipe(
         map(sortByName => {
-          return this.student.slice().sort((a, b) => {
+          return this.dataSource.data.slice().sort((a, b) => {
             if (sortByName) {
               const aCompleteStudentName = `${a.firstName1} ${a.firstName2} ${a.lastName1} ${a.lastName2}`;
               const bCompleteStudentName = `${b.firstName1} ${b.firstName2} ${b.lastName1} ${b.lastName2}`;
@@ -111,7 +91,8 @@ export class TableComponent {
           };
 
           // Update student array and sort again
-          this.student.push(newStudent);
+          this.dataSource.data = [...this.dataSource.data, newStudent];
+
           this.sortByNames.next(this.sortByNames.value);
           this.studentEventsService.updateTotalStudents(this.dataSource.data.length);
         }
@@ -135,9 +116,9 @@ export class TableComponent {
       if (result) {
         const index = this.dataSource.data.findIndex(s => s.id === student.id);
         if (index > -1) {
-          this.student.splice(index, 1);
+          this.dataSource.data.splice(index, 1);
           this.sortByNames.next(this.sortByNames.value);
-          this.studentEventsService.updateTotalStudents(this.student.length);
+          this.studentEventsService.updateTotalStudents(this.dataSource.data.length);
         }
       }
     });
@@ -154,13 +135,14 @@ export class TableComponent {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         const index = this.dataSource.data.findIndex(s => s.id === result.id);
+        console.log(index);
         if (index > -1) {
           console.log(result);
           this.dataSource.data[index] = result;
           this.dataSource._updateChangeSubscription();
 
           // Update student array and sort again
-          this.student[index] = result;
+          this.dataSource.data[index] = result;
           this.sortByNames.next(this.sortByNames.value);
         }
       }

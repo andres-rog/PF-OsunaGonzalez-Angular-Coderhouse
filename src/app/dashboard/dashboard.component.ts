@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginComponent } from '../pages/dialogs/dialog-components/login/login/login.component';
+import links from './nav-items';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,6 +10,7 @@ import { LoginComponent } from '../pages/dialogs/dialog-components/login/login/l
 })
 export class DashboardComponent {
   showFiller = false;
+  links = links;
 
   constructor(
     private dialog: MatDialog
