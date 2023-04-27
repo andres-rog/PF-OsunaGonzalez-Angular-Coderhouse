@@ -14,23 +14,19 @@ export class AbmClassSubjectsComponent {
   classSubjectCreated = new EventEmitter<void>();
 
   idControl = new FormControl();
-  register_dateControl = new FormControl();
-  firstName1Control = new FormControl('', [Validators.required, Validators.maxLength(30)]);
-  firstName2Control = new FormControl('',[Validators.maxLength(30)]);
-  lastName1Control = new FormControl('', [Validators.required, Validators.maxLength(30)]);
-  lastName2Control = new FormControl('', [Validators.maxLength(30)]);
-  phoneControl = new FormControl('', [Validators.required, Validators.maxLength(10), Validators.minLength(10)]);
-  emailControl = new FormControl('', [Validators.required, Validators.email]);
+  titleControl = new FormControl('', [Validators.required, Validators.maxLength(50)]);
+  timePerClassControl = new FormControl('', [Validators.required, Validators.maxLength(20)]);
+  totalClassesControl = new FormControl('', [Validators.required]);
+  classesPerWeekControl = new FormControl('', [Validators.required]);
+  difficultyControl = new FormControl('', [Validators.required, Validators.maxLength(20)]);
 
   classSubjectsForm = new FormGroup({
     id: this.idControl,
-    register_date: this.register_dateControl,
-    firstName1: this.firstName1Control,
-    firstName2: this.firstName2Control,
-    lastName1: this.lastName1Control,
-    lastName2: this.lastName2Control,
-    phone: this.phoneControl,
-    email: this.emailControl
+    title: this.titleControl,
+    timePerClass: this.timePerClassControl,
+    totalClasses: this.totalClassesControl,
+    classesPerWeek: this.classesPerWeekControl,
+    difficulty: this.difficultyControl
   });
 
   constructor(
@@ -46,13 +42,11 @@ export class AbmClassSubjectsComponent {
   setClassSubjectData(classSubject: any) {
     console.log(classSubject);
     this.idControl.setValue(classSubject.id);
-    this.register_dateControl.setValue(classSubject.register_date);
-    this.firstName1Control.setValue(classSubject.firstName1);
-    this.firstName2Control.setValue(classSubject.firstName2);
-    this.lastName1Control.setValue(classSubject.lastName1);
-    this.lastName2Control.setValue(classSubject.lastName2);
-    this.phoneControl.setValue(classSubject.phone);
-    this.emailControl.setValue(classSubject.email);
+    this.titleControl.setValue(classSubject.title);
+    this.timePerClassControl.setValue(classSubject.timePerClass);
+    this.totalClassesControl.setValue(classSubject.totalClasses);
+    this.classesPerWeekControl.setValue(classSubject.classesPerWeek);
+    this.difficultyControl.setValue(classSubject.difficulty);
   }
 
   createClassSubject(): void {
@@ -64,11 +58,4 @@ export class AbmClassSubjectsComponent {
     }
   }
 
-  numberOnly(event: any): boolean {
-    const charCode = (event.which) ? event.which : event.keyCode;
-    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-      return false;
-    }
-    return true;
-  }
 }

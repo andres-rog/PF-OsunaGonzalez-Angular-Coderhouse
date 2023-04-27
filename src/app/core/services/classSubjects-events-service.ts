@@ -12,23 +12,19 @@ export class ClassSubjectEventsService {
   private classSubjects$ = new BehaviorSubject<ClassSubject[]>([
     {
       id: 1,
-      firstName1: 'Andres',
-      firstName2: 'Roberto',
-      lastName1: 'Osuna',
-      lastName2: 'Gonzalez',
-      phone: '5555555555',
-      email: 'Andres.ROG@outlook.com',
-      register_date: new Date()
+      title: 'Angular',
+      timePerClass: '2 horas',
+      totalClasses: 24,
+      classesPerWeek: 2,
+      difficulty: 'Avanzado'
     },
     {
       id: 2,
-      firstName1: 'Test1',
-      firstName2: 'Test2',
-      lastName1: 'Test3',
-      lastName2: 'Test4',
-      phone: '1234567890',
-      email: 'TEST@outlook.com',
-      register_date: new Date()
+      title: 'C# .NET',
+      timePerClass: '1.5 horas',
+      totalClasses: 30,
+      classesPerWeek: 2,
+      difficulty: 'Intermedio'
     }
   ]);
 

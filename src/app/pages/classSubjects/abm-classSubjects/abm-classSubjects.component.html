@@ -1,76 +1,51 @@
-<h1 mat-dialog-title>ABM Alumnos</h1>
+<h1 mat-dialog-title>ABM Asignaturas</h1>
 <div mat-dialog-content>
   <form class="grid formgrid" [formGroup]="classSubjectsForm">
-
-    <p class="name-title">Nombres</p>
+    <p class="name-title">Asignatura</p>
     <div class="col-12 field input-row">
-      <mat-form-field class="w-full firstInput">
-        <mat-label>Primer Nombre</mat-label>
-        <input
-          [formControl]="firstName1Control"
-          type="text"
-          matInput
-        >
-        <mat-error *ngFor="let error of firstName1Control.errors | keyvalue">{{ error | controlErrorMessages }}</mat-error>
-      </mat-form-field>
       <mat-form-field class="w-full">
-        <mat-label>Segundo Nombre</mat-label>
-        <input
-          [formControl]="firstName2Control"
-          type="text"
-          matInput
-        >
-        <mat-error *ngFor="let error of firstName2Control.errors | keyvalue">{{ error | controlErrorMessages }}</mat-error>
+        <mat-label>Titulo</mat-label>
+        <input [formControl]="titleControl" type="text" matInput />
+        <mat-error *ngFor="let error of titleControl.errors | keyvalue">{{
+          error | controlErrorMessages
+        }}</mat-error>
       </mat-form-field>
     </div>
 
-    <p class="name-title">Apellidos</p>
+    <p class="name-title">Detalles</p>
     <div class="col-12 field input-row">
       <mat-form-field class="w-full firstInput">
-        <mat-label>Primer Apellido</mat-label>
-        <input
-          [formControl]="lastName1Control"
-          type="text"
-          matInput
-        >
-        <mat-error *ngFor="let error of lastName1Control.errors | keyvalue">{{ error | controlErrorMessages }}</mat-error>
+        <mat-label>Tiempo por cada clase (horas)</mat-label>
+        <input [formControl]="timePerClassControl" type="text" matInput />
+        <mat-error *ngFor="let error of timePerClassControl.errors | keyvalue">{{
+          error | controlErrorMessages
+        }}</mat-error>
       </mat-form-field>
       <mat-form-field class="w-full">
-        <mat-label>Segundo Apellido</mat-label>
-        <input
-          [formControl]="lastName2Control"
-          type="text"
-          matInput
-        >
-        <mat-error *ngFor="let error of lastName2Control.errors | keyvalue">{{ error | controlErrorMessages }}</mat-error>
+        <mat-label>Total de clases</mat-label>
+        <input [formControl]="totalClassesControl" type="number" matInput class="no-spinners" />
+        <mat-error *ngFor="let error of totalClassesControl.errors | keyvalue">{{
+          error | controlErrorMessages
+        }}</mat-error>
       </mat-form-field>
     </div>
 
-    <p class="name-title">Contacto</p>
     <div class="col-12 field input-row">
       <mat-form-field class="w-full firstInput">
-        <mat-label>Telefono</mat-label>
-        <input
-          [formControl]="phoneControl"
-          type="text"
-          matInput
-          type="number"
-          class = "no-spinners"
-        >
-        <mat-error *ngFor="let error of phoneControl.errors | keyvalue">{{ error | controlErrorMessages }}</mat-error>
+        <mat-label>Clases por semana</mat-label>
+        <input [formControl]="classesPerWeekControl" type="number" matInput class="no-spinners" />
+        <mat-error *ngFor="let error of classesPerWeekControl.errors | keyvalue">{{
+          error | controlErrorMessages
+        }}</mat-error>
       </mat-form-field>
-
       <mat-form-field class="w-full">
-        <mat-label>Email</mat-label>
-        <input
-          [formControl]="emailControl"
-          type="text"
-          matInput
-        >
-        <mat-error *ngFor="let error of emailControl.errors | keyvalue">{{ error | controlErrorMessages }}</mat-error>
+        <mat-label>Dificultad</mat-label>
+        <input [formControl]="difficultyControl" type="text" matInput />
+        <mat-error *ngFor="let error of difficultyControl.errors | keyvalue">{{
+          error | controlErrorMessages
+        }}</mat-error>
       </mat-form-field>
     </div>
-
   </form>
 </div>
 

@@ -10,13 +10,11 @@ import { ClassSubjectEventsService } from 'src/app/core/services/classSubjects-e
 
 export interface ClassSubject {
   id: number;
-  firstName1: string;
-  firstName2: string;
-  lastName1: string;
-  lastName2: string;
-  phone: string;
-  email: string;
-  register_date: Date;
+  title: string;
+  timePerClass: string;
+  totalClasses: number;
+  classesPerWeek: number;
+  difficulty: string;
 }
 
 @Component({
@@ -26,12 +24,12 @@ export interface ClassSubject {
 })
 export class ClassSubjectTableComponent {
 
-  private sortByNames = new BehaviorSubject<boolean>(false);
+  private sortByTitle = new BehaviorSubject<boolean>(false);
   totalClassSubjects$ = this.classSubjectEventsService.getTotalClassSubjects();
 
   dataSource = new MatTableDataSource<ClassSubject>();
 
-  displayedColumns: string[] = ['id', 'firstNames', 'lastNames', 'phone', 'email', 'register_date', 'delete/modify'];
+  displayedColumns: string[] = ['id', 'title', 'timePerClass', 'totalClasses', 'classesPerWeek', 'difficulty', 'delete/modify'];
 
   filter(ev: Event): void {
     const inputValue = (ev.target as HTMLInputElement)?.value;
@@ -48,20 +46,18 @@ export class ClassSubjectTableComponent {
         this.dataSource.data = classSubject;
       })
 
-      this.sortByNames
+      this.sortByTitle
       .pipe(
-        map(sortByName => {
+        map((sortByTitle) => {
           return this.dataSource.data.slice().sort((a, b) => {
-            if (sortByName) {
-              const aCompleteClassSubjectName = `${a.firstName1} ${a.firstName2} ${a.lastName1} ${a.lastName2}`;
-              const bCompleteClassSubjectName = `${b.firstName1} ${b.firstName2} ${b.lastName1} ${b.lastName2}`;
-              return aCompleteClassSubjectName.localeCompare(bCompleteClassSubjectName);
+            if (sortByTitle) {
+              return a.title.localeCompare(b.title);
             }
             return 0;
           });
         })
       )
-      .subscribe(sortedClassSubjects => {
+      .subscribe((sortedClassSubjects) => {
         this.dataSource.data = sortedClassSubjects;
       });
 
@@ -93,7 +89,7 @@ export class ClassSubjectTableComponent {
           // Update classSubject array and sort again
           this.dataSource.data = [...this.dataSource.data, newClassSubject];
 
-          this.sortByNames.next(this.sortByNames.value);
+          this.sortByTitle.next(this.sortByTitle.value);
           this.classSubjectEventsService.updateTotalClassSubjects(this.dataSource.data.length);
         }
       });
@@ -107,8 +103,8 @@ export class ClassSubjectTableComponent {
     const dialogRef = this.matDialog.open(DeleteClassSubjectDialogComponent, {
       data: {
         title: 'Eliminar',
-        name: `${classSubject.firstName1} ${classSubject.firstName2} ${classSubject.lastName1} ${classSubject.lastName2}`,
-        message: `¿Estás seguro de eliminar el registro de este alumno?`
+        name: `${classSubject.title}`,
+        message: `¿Estás seguro de eliminar el registro de esta asignatura?`
       }
     });
 
@@ -117,7 +113,7 @@ export class ClassSubjectTableComponent {
         const index = this.dataSource.data.findIndex(s => s.id === classSubject.id);
         if (index > -1) {
           this.dataSource.data.splice(index, 1);
-          this.sortByNames.next(this.sortByNames.value);
+          this.sortByTitle.next(this.sortByTitle.value);
           this.classSubjectEventsService.updateTotalClassSubjects(this.dataSource.data.length);
         }
       }
@@ -143,14 +139,14 @@ export class ClassSubjectTableComponent {
 
           // Update classSubject array and sort again
           this.dataSource.data[index] = result;
-          this.sortByNames.next(this.sortByNames.value);
+          this.sortByTitle.next(this.sortByTitle.value);
         }
       }
     });
   }
 
   toggleSortByName(checked: boolean): void {
-    this.sortByNames.next(checked);
+    this.sortByTitle.next(checked);
   }
 
 }

@@ -1,9 +1,9 @@
 <div class="mb-3">
     <section class="table-header">
-      <p class="table-title">Estudiantes:</p>
+      <p class="table-title">Asignaturas:</p>
       <button (click)="openABMClassSubject()" color="primary" mat-flat-button>
         <mat-icon>add</mat-icon>
-        Agregar Alumno
+        Agregar Asignatura
       </button>
     </section>
     <br>
@@ -11,49 +11,42 @@
   </div>
   
   <mat-form-field class="w-full">
-    <mat-label>Filtrar (ejemplo: Nombre de alumno)</mat-label>
+    <mat-label>Filtrar (ejemplo: Nombre de la clase)</mat-label>
     <input matInput (keyup)="filter($event)" placeholder="Ex. ium" #input>
   </mat-form-field>
-  <h4>Cantidad de alumnos: {{totalClassSubjects$ | async}}</h4>
-  <mat-checkbox (change)="toggleSortByName($event.checked)">Ordenar por nombres</mat-checkbox>
+  <h4>Cantidad de clases: {{totalClassSubjects$ | async}}</h4>
+  <mat-checkbox (change)="toggleSortByName($event.checked)">Ordenar por nombre</mat-checkbox>
   
   <!--ClassSubject Columns-->
   <table mat-table [dataSource]="dataSource">
-  
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef [ngStyle]="{'font-size': '20px'}">Id</th>
       <td mat-cell *matCellDef="let classSubject"> {{classSubject.id}} </td>
     </ng-container>
   
-    <ng-container matColumnDef="firstNames">
-      <th mat-header-cell *matHeaderCellDef [ngStyle]="{'font-size': '20px'}">Nombres</th>
-      <td mat-cell *matCellDef="let classSubject">
-        {{classSubject | firstNames : 'uppercase': '' }}
-      </td>
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef [ngStyle]="{'font-size': '20px'}">Nombre</th>
+      <td mat-cell *matCellDef="let classSubject"> {{classSubject.title}} </td>
     </ng-container>
   
-    <ng-container matColumnDef="lastNames">
-      <th mat-header-cell *matHeaderCellDef [ngStyle]="{'font-size': '20px'}">Apellidos</th>
-      <td mat-cell *matCellDef="let classSubject">
-        {{classSubject | lastNames : 'uppercase': '' }}
-      </td>
+    <ng-container matColumnDef="timePerClass">
+      <th mat-header-cell *matHeaderCellDef [ngStyle]="{'font-size': '20px'}">Tiempo por cada clase</th>
+      <td mat-cell *matCellDef="let classSubject"> {{classSubject.timePerClass}} </td>
     </ng-container>
   
-    <ng-container matColumnDef="phone">
-      <th mat-header-cell *matHeaderCellDef [ngStyle]="{'font-size': '20px'}">Telefono</th>
-      <td mat-cell *matCellDef="let classSubject">
-        {{classSubject | phonePipe }}
-      </td>
+    <ng-container matColumnDef="totalClasses">
+      <th mat-header-cell *matHeaderCellDef [ngStyle]="{'font-size': '20px'}">Total de clases</th>
+      <td mat-cell *matCellDef="let classSubject"> {{classSubject.totalClasses}} </td>
     </ng-container>
   
-    <ng-container matColumnDef="email">
-      <th mat-header-cell *matHeaderCellDef [ngStyle]="{'font-size': '20px'}">Email</th>
-      <td mat-cell *matCellDef="let classSubject"> {{classSubject.email}} </td>
+    <ng-container matColumnDef="classesPerWeek">
+      <th mat-header-cell *matHeaderCellDef [ngStyle]="{'font-size': '20px'}">Clases por semana</th>
+      <td mat-cell *matCellDef="let classSubject"> {{classSubject.classesPerWeek}} </td>
     </ng-container>
   
-    <ng-container matColumnDef="register_date">
-      <th mat-header-cell *matHeaderCellDef [ngStyle]="{'font-size': '20px'}">Fecha de registro</th>
-      <td mat-cell *matCellDef="let classSubject"> {{classSubject.register_date | date: 'dd/MM/YYYY'  }} </td>
+    <ng-container matColumnDef="difficulty">
+      <th mat-header-cell *matHeaderCellDef [ngStyle]="{'font-size': '20px'}">Dificultad</th>
+      <td mat-cell *matCellDef="let classSubject"> {{classSubject.difficulty}} </td>
     </ng-container>
   
     <ng-container matColumnDef="delete/modify">
@@ -72,6 +65,5 @@
   
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let classSubject; columns: displayedColumns;" (click)="logClassSubject(classSubject)"></tr>
-  
   </table>
   

@@ -9,6 +9,8 @@ import { LoginComponent } from './dialog-components/login/login/login.component'
 import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import { DeleteClassSubjectDialogComponent } from './dialog-components/delete-classSubject-dialog/delete-classSubject-dialog.component';
+import { DeleteInstructorDialogComponent } from './dialog-components/delete-instructor-dialog/delete-instructor-dialog.component';
 
 
 @NgModule({
@@ -16,6 +18,8 @@ import { MatInputModule } from '@angular/material/input';
     DialogsComponent,
     StudentDialogComponent,
     DeleteStudentDialogComponent,
+    DeleteClassSubjectDialogComponent,
+    DeleteInstructorDialogComponent,
     LoginComponent
   ],
   imports: [
