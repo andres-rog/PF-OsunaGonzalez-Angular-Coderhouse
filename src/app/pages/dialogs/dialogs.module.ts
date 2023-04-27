@@ -10,7 +10,8 @@ import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { DeleteClassSubjectDialogComponent } from './dialog-components/delete-classSubject-dialog/delete-classSubject-dialog.component';
-import { DeleteInstructorDialogComponent } from './dialog-components/delete-instructor-dialog/delete-instructor-dialog.component';
+import { DeleteEnrollDialogComponent } from './dialog-components/delete-enroll-dialog/delete-enroll-dialog.component';
+
 
 
 @NgModule({
@@ -19,7 +20,7 @@ import { DeleteInstructorDialogComponent } from './dialog-components/delete-inst
     StudentDialogComponent,
     DeleteStudentDialogComponent,
     DeleteClassSubjectDialogComponent,
-    DeleteInstructorDialogComponent,
+    DeleteEnrollDialogComponent,
     LoginComponent
   ],
   imports: [

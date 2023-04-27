@@ -10,7 +10,7 @@ import {MatDividerModule} from '@angular/material/divider';
 import { RouterModule } from '@angular/router';
 import { MatListModule} from '@angular/material/list';
 import { StudentsModule } from '../pages/students/students.module';
-import { InstructorsModule } from '../pages/instructors/instructors.module';
+import { EnrollsModule } from '../pages/enroll/enroll.module';
 import { ClassSubjectsModule } from '../pages/classSubjects/class-subjects.module';
 
 @NgModule({
@@ -28,7 +28,7 @@ import { ClassSubjectsModule } from '../pages/classSubjects/class-subjects.modul
     RouterModule,
     MatListModule,
     StudentsModule,
-    InstructorsModule,
+    EnrollsModule,
     ClassSubjectsModule
   ],
   exports: [

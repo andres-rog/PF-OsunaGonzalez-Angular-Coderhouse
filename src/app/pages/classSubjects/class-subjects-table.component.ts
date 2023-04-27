@@ -102,7 +102,7 @@ export class ClassSubjectTableComponent {
   deleteClassSubject(classSubject: any) {
     const dialogRef = this.matDialog.open(DeleteClassSubjectDialogComponent, {
       data: {
-        title: 'Eliminar',
+        title: 'Eliminar Asignatura',
         name: `${classSubject.title}`,
         message: `¿Estás seguro de eliminar el registro de esta asignatura?`
       }

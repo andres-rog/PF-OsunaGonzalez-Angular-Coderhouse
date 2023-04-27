@@ -1,0 +1,90 @@
+<div class="mb-3">
+  <section class="table-header">
+    <p class="table-title">Inscripciones:</p>
+    <button (click)="openABMEnroll()" color="primary" mat-flat-button>
+      <mat-icon>add</mat-icon>
+      Inscribir Estudiante
+    </button>
+  </section>
+  <br>
+  <hr>
+</div>
+
+<mat-form-field class="w-full">
+  <mat-label>Filtrar (ejemplo: Nombre del estudiante)</mat-label>
+  <input matInput (keyup)="filter($event)" placeholder="Ex. ium" #input>
+</mat-form-field>
+<h4>Cantidad de inscripciones: {{totalEnroll$ | async}}</h4>
+<mat-checkbox (change)="toggleSortByEnrollDate($event.checked)">Ordenar por fecha de inscripción</mat-checkbox>
+
+<!--Enroll Columns-->
+<table mat-table [dataSource]="dataSource">
+
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef [ngStyle]="{'font-size': '20px'}">Id</th>
+    <td mat-cell *matCellDef="let enroll"> {{enroll.id}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="studentName">
+    <th mat-header-cell *matHeaderCellDef [ngStyle]="{'font-size': '20px'}">Estudiante</th>
+    <td mat-cell *matCellDef="let enroll"> {{enroll.studentName}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="subjectName">
+    <th mat-header-cell *matHeaderCellDef [ngStyle]="{'font-size': '20px'}">Asignatura</th>
+    <td mat-cell *matCellDef="let enroll"> {{enroll.subjectName}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="enrollDate">
+    <th mat-header-cell *matHeaderCellDef [ngStyle]="{'font-size': '20px'}">Fecha de inscripción</th>
+    <td mat-cell *matCellDef="let enroll"> {{enroll.enrollDate | date: 'dd/MM/YYYY'}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="startDate">
+    <th mat-header-cell *matHeaderCellDef [ngStyle]="{'font-size': '20px'}">Fecha de inicio</th>
+    <td mat-cell *matCellDef="let enroll"> {{enroll.startDate | date: 'dd/MM/YYYY'}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="endDate">
+    <th mat-header-cell *matHeaderCellDef [ngStyle]="{'font-size': '20px'}">Fecha de finalización</th>
+    <td mat-cell *matCellDef="let enroll"> {{enroll.endDate | date: 'dd/MM/YYYY'}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="weekDays">
+    <th mat-header-cell *matHeaderCellDef [ngStyle]="{'font-size': '20px'}">Días de la semana</th>
+    <td mat-cell *matCellDef="let enroll"> {{enroll.weekDays}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="startHour">
+    <th mat-header-cell *matHeaderCellDef [ngStyle]="{'font-size': '20px'}">Hora de inicio</th>
+    <td mat-cell *matCellDef="let enroll"> {{enroll.startHour}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="endHour">
+    <th mat-header-cell *matHeaderCellDef [ngStyle]="{'font-size': '20px'}">Hora de finalización</th>
+    <td mat-cell *matCellDef="let enroll"> {{enroll.endHour}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="cost">
+    <th mat-header-cell *matHeaderCellDef [ngStyle]="{'font-size': '20px'}">Costo</th>
+    <td mat-cell *matCellDef="let enroll"> {{enroll.cost}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="delete/modify">
+    <th mat-header-cell *matHeaderCellDef [ngStyle]="{'font-size': '20px'}">Acciones</th>
+    <td mat-cell *matCellDef="let enroll">
+      <a href="#" class="action-link" (click)="modifyEnroll(enroll); $event.preventDefault()">
+        <mat-icon class="edit-icon">edit</mat-icon>
+        Modificar
+      </a>
+      <a href="#" class="action-link" (click)="deleteEnroll(enroll); $event.preventDefault()">
+        <mat-icon class="delete-icon">delete</mat-icon>
+        Eliminar
+      </a>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let enroll; columns: displayedColumns;" (click)="logEnroll(enroll)"></tr>
+
+</table>

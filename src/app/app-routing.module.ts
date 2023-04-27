@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { StudentTableComponent } from './pages/students/studentTable.component';
-import { InstructorTableComponent } from './pages/instructors/instructors-table.component';
+import { EnrollTableComponent } from './pages/enroll/enroll-table.component';
 import { ClassSubjectTableComponent } from './pages/classSubjects/class-subjects-table.component';
 
 const routes: Routes = [
@@ -15,8 +15,8 @@ const routes: Routes = [
         component: StudentTableComponent //Students
       },
       {
-        path: 'instructors',
-        component: InstructorTableComponent //Instructor
+        path: 'enroll',
+        component: EnrollTableComponent //Enrolling
       },
       {
         path: 'subjects',

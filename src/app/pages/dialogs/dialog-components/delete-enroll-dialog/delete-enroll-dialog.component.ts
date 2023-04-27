@@ -2,14 +2,14 @@ import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-delete-instructor-dialog',
-  templateUrl: './delete-instructor-dialog.component.html',
-  styleUrls: ['./delete-instructor-dialog.component.scss']
+  selector: 'app-delete-enroll-dialog',
+  templateUrl: './delete-enroll-dialog.component.html',
+  styleUrls: ['./delete-enroll-dialog.component.scss']
 })
 
-export class DeleteInstructorDialogComponent {
+export class DeleteEnrollDialogComponent {
   constructor(
-    public dialogRef: MatDialogRef<DeleteInstructorDialogComponent>,
+    public dialogRef: MatDialogRef<DeleteEnrollDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: {
       title: string;
       name: string;

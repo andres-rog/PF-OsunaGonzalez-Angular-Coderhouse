@@ -106,7 +106,7 @@ export class StudentTableComponent {
   deleteStudent(student: any) {
     const dialogRef = this.matDialog.open(DeleteStudentDialogComponent, {
       data: {
-        title: 'Eliminar',
+        title: 'Eliminar Alumno',
         name: `${student.firstName1} ${student.firstName2} ${student.lastName1} ${student.lastName2}`,
         message: `¿Estás seguro de eliminar el registro de este alumno?`
       }

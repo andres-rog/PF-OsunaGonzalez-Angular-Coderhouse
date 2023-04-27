@@ -1,0 +1,119 @@
+<h1 mat-dialog-title>ABM Inscripciones</h1>
+<div mat-dialog-content>
+  <form class="grid formgrid" [formGroup]="EnrollForm">
+
+    <p class="name-title">Estudiante</p>
+    <div class="col-12 field input-row">
+      <mat-form-field class="w-full">
+        <mat-label>Estudiante</mat-label>
+        <input
+          [formControl]="studentNameControl"
+          type="text"
+          matInput
+        >
+        <mat-error *ngFor="let error of studentNameControl.errors | keyvalue">{{ error | controlErrorMessages }}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <p class="name-title">Asignatura</p>
+    <div class="col-12 field input-row">
+      <mat-form-field class="w-full">
+        <mat-label>Asignatura</mat-label>
+        <input
+          [formControl]="subjectNameControl"
+          type="text"
+          matInput
+        >
+        <mat-error *ngFor="let error of subjectNameControl.errors | keyvalue">{{ error | controlErrorMessages }}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <p class="name-title">Fechas</p>
+    <div class="col-12 field input-row">
+      <mat-form-field class="w-full firstInput">
+        <mat-label>Fecha de Inscripción</mat-label>
+        <input
+          [formControl]="enrollDateControl"
+          type="date"
+          matInput
+        >
+        <mat-error *ngFor="let error of enrollDateControl.errors | keyvalue">{{ error | controlErrorMessages }}</mat-error>
+      </mat-form-field>
+      <mat-form-field class="w-full">
+        <mat-label>Fecha de Inicio</mat-label>
+        <input
+          [formControl]="startDateControl"
+          type="date"
+          matInput
+        >
+        <mat-error *ngFor="let error of startDateControl.errors | keyvalue">{{ error | controlErrorMessages }}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="col-12 field input-row">
+      <mat-form-field class="w-full firstInput">
+        <mat-label>Fecha de Finalización</mat-label>
+        <input
+          [formControl]="endDateControl"
+          type="date"
+          matInput
+        >
+        <mat-error *ngFor="let error of endDateControl.errors | keyvalue">{{ error | controlErrorMessages }}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <p class="name-title">Horario</p>
+    <div class="col-12 field input-row">
+      <mat-form-field class="w-full firstInput">
+        <mat-label>Hora de Finalización</mat-label>
+        <input
+          [formControl]="endHourControl"
+          type="text"
+          matInput
+        >
+        <mat-error *ngFor="let error of weekDaysControl.errors | keyvalue">{{ error | controlErrorMessages }}</mat-error>
+      </mat-form-field>
+      <mat-form-field class="w-full">
+        <mat-label>Hora de Inicio</mat-label>
+        <input
+          [formControl]="startHourControl"
+          type="text"
+          matInput
+        >
+        <mat-error *ngFor="let error of startHourControl.errors | keyvalue">{{ error | controlErrorMessages }}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="col-12 field input-row">
+      <mat-form-field class="w-full firstInput">
+        <mat-label>Días de la Semana</mat-label>
+        <input
+          [formControl]="weekDaysControl"
+          type="text"
+          matInput
+        >
+        <mat-error *ngFor="let error of endHourControl.errors | keyvalue">{{ error | controlErrorMessages }}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <p class="name-title">Costo</p>
+    <div class="col-12 field input-row">
+      <mat-form-field class="w-full">
+        <mat-label>Costo</mat-label>
+        <input
+          [formControl]="costControl"
+          type="number"
+          matInput
+          class="no-spinners"
+        >
+        <mat-error *ngFor="let error of costControl.errors | keyvalue">{{ error | controlErrorMessages }}</mat-error>
+      </mat-form-field>
+    </div>
+
+  </form>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <button (click)="enrollStudent()" mat-button>Guardar</button>
+</div>

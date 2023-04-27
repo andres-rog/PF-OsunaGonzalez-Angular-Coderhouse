@@ -6,17 +6,18 @@ import { MatInputModule } from '@angular/material/input';
 import { PipesModule } from 'src/app/shared/pipes/pipes.module';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { AbmInstructorsComponent } from './abm-instructors/abm-instructors.component';
+import { AbmEnrollComponent } from './abm-enroll/abm-enroll.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DialogsModule } from '../dialogs/dialogs.module';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { InstructorTableComponent } from './instructors-table.component';
+import { EnrollTableComponent } from './enroll-table.component';
+
 
 @NgModule({
   declarations: [
-    InstructorTableComponent,
-    AbmInstructorsComponent
+    AbmEnrollComponent,
+    EnrollTableComponent
   ],
   imports: [
     CommonModule,
@@ -32,7 +33,6 @@ import { InstructorTableComponent } from './instructors-table.component';
     MatCheckboxModule,
   ],
   exports: [
-    InstructorTableComponent
   ]
 })
-export class InstructorsModule { }
+export class EnrollsModule { }
