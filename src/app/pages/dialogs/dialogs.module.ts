@@ -5,7 +5,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { StudentDialogComponent } from './dialog-components/student-dialog/student-dialog.component';
 import { DeleteStudentDialogComponent } from './dialog-components/delete-student-dialog/delete-student-dialog.component';
-import { LoginComponent } from './dialog-components/login/login/login.component';
 import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
@@ -20,8 +19,7 @@ import { DeleteEnrollDialogComponent } from './dialog-components/delete-enroll-d
     StudentDialogComponent,
     DeleteStudentDialogComponent,
     DeleteClassSubjectDialogComponent,
-    DeleteEnrollDialogComponent,
-    LoginComponent
+    DeleteEnrollDialogComponent
   ],
   imports: [
     CommonModule,

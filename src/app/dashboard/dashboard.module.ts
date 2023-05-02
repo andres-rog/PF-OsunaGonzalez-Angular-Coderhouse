@@ -12,6 +12,9 @@ import { MatListModule} from '@angular/material/list';
 import { StudentsModule } from '../pages/students/students.module';
 import { EnrollsModule } from '../pages/enroll/enroll.module';
 import { ClassSubjectsModule } from '../pages/classSubjects/class-subjects.module';
+import { StudentTableComponent } from '../pages/students/studentTable.component';
+import { EnrollTableComponent } from '../pages/enroll/enroll-table.component';
+import { ClassSubjectTableComponent } from '../pages/classSubjects/class-subjects-table.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,26 @@ import { ClassSubjectsModule } from '../pages/classSubjects/class-subjects.modul
     MatButtonModule,
     DialogsModule,
     MatDividerModule,
-    RouterModule,
+    RouterModule.forChild([
+      {
+        path: 'dashboard',
+        component: DashboardComponent,
+        children: [
+          {
+            path: 'students',
+            component: StudentTableComponent //Students
+          },
+          {
+            path: 'enroll',
+            component: EnrollTableComponent //Enrolling
+          },
+          {
+            path: 'subjects',
+            component: ClassSubjectTableComponent //Subjects
+          }
+        ]
+      },
+    ]),
     MatListModule,
     StudentsModule,
     EnrollsModule,
