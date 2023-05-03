@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
-import { Student } from 'src/app/pages/students/studentTable.component';
+import { Student } from 'src/app/core/models';
+import { HttpClient } from '@angular/common/http';
 
 
 @Injectable({
@@ -10,36 +11,15 @@ import { Student } from 'src/app/pages/students/studentTable.component';
 export class StudentEventsService {
   studentCreated$: Subject<string> = new Subject();
   totalStudents = new BehaviorSubject<number>(0);
-  private students$ = new BehaviorSubject<Student[]>([
-    {
-      id: 1,
-      firstName1: 'Andres',
-      firstName2: 'Roberto',
-      lastName1: 'Osuna',
-      lastName2: 'Gonzalez',
-      phone: '5555555555',
-      email: 'Andres.ROG@outlook.com',
-      register_date: new Date()
-    },
-    {
-      id: 2,
-      firstName1: 'Test1',
-      firstName2: 'Test2',
-      lastName1: 'Test3',
-      lastName2: 'Test4',
-      phone: '1234567890',
-      email: 'TEST@outlook.com',
-      register_date: new Date()
-    }
-  ]);
+  private students$ = new BehaviorSubject<Student[]>([]);
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   notifyStudentCreated(message: string): void {
     this.studentCreated$.next(message);
   }
 
-  
+
   getTotalStudents() {
     return this.totalStudents.asObservable();
   }
@@ -55,7 +35,22 @@ export class StudentEventsService {
   }
 
   getStudents(): Observable<Student[]> {
-    return this.students$.asObservable();
+    console.log("GET STUDENT called");
+    return this.http.get<Student[]>('http://localhost:3000/students');
   }
-  
+
+  deleteStudent(id: number): Observable<any> {
+    console.log("DELETE STUDENT called");
+    return this.http.delete(`http://localhost:3000/students/${id}`);
+  }
+
+  createStudent(student: Student): Observable<Student> {
+    console.log("CREATE STUDENT called");
+    return this.http.post<Student>('http://localhost:3000/students', student);
+  }
+
+  modifyStudent(id: number, updatedStudent: Student): Observable<Student> {
+    return this.http.put<Student>(`http://localhost:3000/students/${id}`, updatedStudent);
+  }
+
 }

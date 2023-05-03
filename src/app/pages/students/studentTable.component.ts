@@ -7,17 +7,7 @@ import { NotificationsService } from 'src/app/core/services/notifications.servic
 import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { StudentEventsService } from 'src/app/core/services/student-events.service';
-
-export interface Student {
-  id: number;
-  firstName1: string;
-  firstName2: string;
-  lastName1: string;
-  lastName2: string;
-  phone: string;
-  email: string;
-  register_date: Date;
-}
+import { Student } from 'src/app/core/models';
 
 @Component({
   selector: 'app-table',
@@ -103,7 +93,7 @@ export class StudentTableComponent {
     console.log(student);
   }
 
-  deleteStudent(student: any) {
+  deleteStudent(student: Student) {
     const dialogRef = this.matDialog.open(DeleteStudentDialogComponent, {
       data: {
         title: 'Eliminar Alumno',
@@ -114,17 +104,17 @@ export class StudentTableComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        const index = this.dataSource.data.findIndex(s => s.id === student.id);
-        if (index > -1) {
-          this.dataSource.data.splice(index, 1);
+        this.studentEventsService.deleteStudent(student.id).subscribe(() => {
+          this.dataSource.data = this.dataSource.data.filter(s => s.id !== student.id);
           this.sortByNames.next(this.sortByNames.value);
           this.studentEventsService.updateTotalStudents(this.dataSource.data.length);
-        }
+        });
       }
     });
   }
 
-  modifyStudent(student: any) {
+  modifyStudent(student: Student): void {
+    console.log("MODIFY STUDENT");
     const dialogRef = this.matDialog.open(AbmStudentsComponent, {
       data: {
         action: 'update',
@@ -134,17 +124,20 @@ export class StudentTableComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        const index = this.dataSource.data.findIndex(s => s.id === result.id);
-        console.log(index);
-        if (index > -1) {
-          console.log(result);
-          this.dataSource.data[index] = result;
-          this.dataSource._updateChangeSubscription();
+        const updatedStudent = result;
+        this.studentEventsService.modifyStudent(student.id, updatedStudent).subscribe(
+          (updatedStudent) => {
+            const index = this.dataSource.data.findIndex(s => s.id === updatedStudent.id);
+            if (index > -1) {
+              this.dataSource.data[index] = updatedStudent;
+              this.dataSource._updateChangeSubscription();
+              this.sortByNames.next(this.sortByNames.value);
+            }
+          },
+          (error) => {
 
-          // Update student array and sort again
-          this.dataSource.data[index] = result;
-          this.sortByNames.next(this.sortByNames.value);
-        }
+          }
+        );
       }
     });
   }

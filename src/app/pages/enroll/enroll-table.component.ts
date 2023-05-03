@@ -79,7 +79,7 @@ export class EnrollTableComponent {
           action: 'create'
         }
       });
-  
+
       dialog.afterClosed().subscribe((value) => {
         console.log(value);
         if (value) {
@@ -87,10 +87,10 @@ export class EnrollTableComponent {
             id: this.dataSource.data.length + 1,
             ...value,
           };
-  
+
           // Update enroll array and sort again
           this.dataSource.data = [...this.dataSource.data, newEnroll];
-  
+
           this.SortByEnrollDate.next(this.SortByEnrollDate.value);
           this.enrollEventsService.updateTotalEnroll(this.dataSource.data.length);
         }
@@ -101,7 +101,7 @@ export class EnrollTableComponent {
     console.log(enroll);
   }
 
-  deleteEnroll(enroll: any) {
+  deleteEnroll(enroll: Enroll) {
     const dialogRef = this.matDialog.open(DeleteEnrollDialogComponent, {
       data: {
         title: 'Eliminar Inscripcion',
@@ -112,12 +112,11 @@ export class EnrollTableComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        const index = this.dataSource.data.findIndex(s => s.id === enroll.id);
-        if (index > -1) {
-          this.dataSource.data.splice(index, 1);
+        this.enrollEventsService.deleteEnroll(enroll.id).subscribe(() => {
+          this.dataSource.data = this.dataSource.data.filter(e => e.id !== enroll.id);
           this.SortByEnrollDate.next(this.SortByEnrollDate.value);
           this.enrollEventsService.updateTotalEnroll(this.dataSource.data.length);
-        }
+        });
       }
     });
   }

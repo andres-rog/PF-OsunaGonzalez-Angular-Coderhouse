@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
 import { ClassSubject } from 'src/app/pages/classSubjects/class-subjects-table.component';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -9,32 +10,15 @@ import { ClassSubject } from 'src/app/pages/classSubjects/class-subjects-table.c
 export class ClassSubjectEventsService {
   classSubjectCreated$: Subject<string> = new Subject();
   totalClassSubjects = new BehaviorSubject<number>(0);
-  private classSubjects$ = new BehaviorSubject<ClassSubject[]>([
-    {
-      id: 1,
-      title: 'Angular',
-      timePerClass: '2 horas',
-      totalClasses: 24,
-      classesPerWeek: 2,
-      difficulty: 'Avanzado'
-    },
-    {
-      id: 2,
-      title: 'C# .NET',
-      timePerClass: '1.5 horas',
-      totalClasses: 30,
-      classesPerWeek: 2,
-      difficulty: 'Intermedio'
-    }
-  ]);
+  private classSubjects$ = new BehaviorSubject<ClassSubject[]>([]);
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   notifyClassSubjectCreated(message: string): void {
     this.classSubjectCreated$.next(message);
   }
 
-  
+
   getTotalClassSubjects() {
     return this.totalClassSubjects.asObservable();
   }
@@ -50,7 +34,11 @@ export class ClassSubjectEventsService {
   }
 
   getClassSubjects(): Observable<ClassSubject[]> {
-    return this.classSubjects$.asObservable();
+    return this.http.get<ClassSubject[]>('http://localhost:3000/subjects');
   }
-  
+
+  deleteClassSubject(id: number): Observable<any> {
+    return this.http.delete(`http://localhost:3000/subjects/${id}`);
+  }
+
 }

@@ -108,17 +108,22 @@ export class ClassSubjectTableComponent {
       }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(async result => {
       if (result) {
-        const index = this.dataSource.data.findIndex(s => s.id === classSubject.id);
-        if (index > -1) {
-          this.dataSource.data.splice(index, 1);
-          this.sortByTitle.next(this.sortByTitle.value);
-          this.classSubjectEventsService.updateTotalClassSubjects(this.dataSource.data.length);
-        }
+        this.classSubjectEventsService.deleteClassSubject(classSubject.id).subscribe(
+          () => {
+            this.dataSource.data = this.dataSource.data.filter(s => s.id !== classSubject.id);
+            this.classSubjectEventsService.updateTotalClassSubjects(this.dataSource.data.length);
+            this.notificationService.showNotification('Asignatura eliminada correctamente!');
+          },
+          (error) => {
+            this.notificationService.showNotification('Error al eliminar la asignatura!');
+          }
+        );
       }
     });
   }
+
 
   modifyClassSubject(classSubject: any) {
     const dialogRef = this.matDialog.open(AbmClassSubjectsComponent, {

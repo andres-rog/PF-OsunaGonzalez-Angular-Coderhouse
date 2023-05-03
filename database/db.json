@@ -1,43 +1,108 @@
 {
-    "usuarios": [
-      {
-        "id": 1,
-        "nombre": "Josué",
-        "apellido": "Baez",
-        "email": "josue@mail.com",
-        "password": "123456",
-        "token": "hjsdfJHFDSAFMsaDsan12sdanjjadashj3FDBEWH",
-        "role": "admin"
-      },
-      {
-        "nombre": "Facundo",
-        "apellido": "Perez",
-        "email": "juan@email.com",
-        "password": "123456",
-        "token": "nmdsgfjhuMDKSAFJASDK327SJDKANjsadnsah",
-        "role": "user",
-        "id": 4
-      }
-    ],
-    "cursos": [
-      {
-        "id": 1,
-        "nombre": "Angular",
-        "fecha_fin": "2023-04-27T01:27:59.631Z",
-        "fecha_inicio": "2023-04-27T01:27:59.631Z"
-      },
-      {
-        "id": 2,
-        "nombre": "Javascript",
-        "fecha_fin": "2023-04-27T01:27:59.631Z",
-        "fecha_inicio": "2023-04-27T01:27:59.631Z"
-      },
-      {
-        "id": 3,
-        "nombre": "Desarrollo Web",
-        "fecha_fin": "2023-04-27T01:27:59.631Z",
-        "fecha_inicio": "2023-04-27T01:27:59.631Z"
-      }
-    ]
-  }
-  
+  "user": [
+    {
+      "id": 1,
+      "firstName": "Andres",
+      "lastName": "Osuna",
+      "email": "admin@email.com",
+      "password": "admin",
+      "token": "hjsdfJHFDSAFMsaDsan12sdanjjadashj3FDBEWH",
+      "role": "admin"
+    },
+    {
+      "firstName": "TestFirstName",
+      "lastName": "TestLastName",
+      "email": "test@email.com",
+      "password": "test",
+      "token": "nmdsgfjhuMDKSAFJASDK327SJDKANjsadnsah",
+      "role": "user",
+      "id": 4
+    }
+  ],
+  "subjects": [
+    {
+      "id": 1,
+      "title": "Angular",
+      "timePerClass": "2 horas",
+      "totalClasses": 24,
+      "classesPerWeek": 2,
+      "difficulty": "Avanzado"
+    },
+    {
+      "id": 2,
+      "title": "C# .NET",
+      "timePerClass": "1.5 horas",
+      "totalClasses": 30,
+      "classesPerWeek": 2,
+      "difficulty": "Intermedio"
+    }
+  ],
+  "students": [
+    {
+      "id": 1,
+      "firstName1": "Andres",
+      "firstName2": "Roberto",
+      "lastName1": "Osuna",
+      "lastName2": "Gonzalez",
+      "phone": "5555555555",
+      "email": "Andres.ROG@outlook.com",
+      "register_date": "05/02/2023"
+    },
+    {
+      "id": 2,
+      "register_date": "05/02/2023",
+      "firstName1": "Test1a",
+      "firstName2": "Test2",
+      "lastName1": "Test3",
+      "lastName2": "Test4",
+      "phone": "1234567890",
+      "email": "TEST@outlook.com"
+    },
+    {
+      "id": 3,
+      "register_date": "05/02/2023",
+      "firstName1": "Nuevo",
+      "firstName2": "Estudiante",
+      "lastName1": "asd",
+      "lastName2": "dsa",
+      "phone": "5555555555",
+      "email": "asd@asd.asd"
+    },
+    {
+      "id": 4,
+      "register_date": null,
+      "firstName1": "asdasd1111",
+      "firstName2": "asdasd",
+      "lastName1": "aaasd",
+      "lastName2": "asdsd",
+      "phone": "1111111111",
+      "email": "asd@asd"
+    }
+  ],
+  "enrolls": [
+    {
+      "id": 1,
+      "studentName": "Andres Osuna",
+      "subjectName": "Angular",
+      "enrollDate": "05/02/2023",
+      "startDate": "05/30/2023",
+      "endDate": "07/30/2023",
+      "weekDays": "Lunes, Miercoles",
+      "startHour": "09:00",
+      "endHour": "11:00",
+      "cost": 100
+    },
+    {
+      "id": 2,
+      "studentName": "Test1 Test2",
+      "subjectName": "C# .NET",
+      "enrollDate": "05/02/2023",
+      "startDate": "05/30/2023",
+      "endDate": "07/30/2023",
+      "weekDays": "Martes, Jueves",
+      "startHour": "14:00",
+      "endHour": "16:00",
+      "cost": 150
+    }
+  ]
+}

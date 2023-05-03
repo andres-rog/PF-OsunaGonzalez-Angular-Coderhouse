@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, BehaviorSubject, map, catchError, throwError } from 'rxjs';
-import { Usuario } from 'src/app/core/models';
+import { User } from 'src/app/core/models';
 import { enviroment } from 'src/environments/environments';
 export interface LoginFormValue {
   email: string;
@@ -14,19 +14,19 @@ export interface LoginFormValue {
 })
 export class AuthService {
 
-  private authUser$ = new BehaviorSubject<Usuario | null>(null);
+  private authUser$ = new BehaviorSubject<User | null>(null);
 
   constructor(
     private router: Router,
     private httpClient: HttpClient,
   ) { }
 
-  getLogedUser(): Observable<Usuario | null> {
+  getLogedUser(): Observable<User | null> {
     return this.authUser$.asObservable();
   }
 
   login(formValue: LoginFormValue): void {
-    this.httpClient.get<Usuario[]>(
+    this.httpClient.get<User[]>(
       `${enviroment.apiBaseUrl}/user`,
       {
         params: {
@@ -41,7 +41,7 @@ export class AuthService {
           this.authUser$.next(logedUser);
           this.router.navigate(['dashboard']);
         } else {
-          alert('¡Usuario y contraseña incorrectos!')
+          alert('¡User y contraseña incorrectos!')
         }
       }
     });
@@ -55,7 +55,7 @@ export class AuthService {
 
   verifyToken(): Observable<boolean> {
     const token = localStorage.getItem('token');
-    return this.httpClient.get<Usuario[]>(
+    return this.httpClient.get<User[]>(
       `${enviroment.apiBaseUrl}/user?token=${token}`,
       {
         headers: new HttpHeaders({

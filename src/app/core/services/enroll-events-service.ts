@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
 import { Enroll } from 'src/app/pages/enroll/enroll-table.component';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -9,34 +10,9 @@ import { Enroll } from 'src/app/pages/enroll/enroll-table.component';
 export class EnrollEventsService {
   EnrollCreated$: Subject<string> = new Subject();
   totalEnroll = new BehaviorSubject<number>(0);
-  private Enroll$ = new BehaviorSubject<Enroll[]>([
-    {
-      id: 1,
-      studentName: 'Andres Osuna',
-      subjectName: 'Angular',
-      enrollDate: new Date(),
-      startDate: new Date(),
-      endDate: new Date(),
-      weekDays: 'Lunes, Miercoles',
-      startHour: '09:00',
-      endHour: '11:00',
-      cost: 100
-    },
-    {
-      id: 2,
-      studentName: 'Test1 Test2',
-      subjectName: 'C# .NET',
-      enrollDate: new Date(),
-      startDate: new Date(),
-      endDate: new Date(),
-      weekDays: 'Martes, Jueves',
-      startHour: '14:00',
-      endHour: '16:00',
-      cost: 150
-    }
-  ]);
+  private Enroll$ = new BehaviorSubject<Enroll[]>([]);
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   notifyEnrollCreated(message: string): void {
     this.EnrollCreated$.next(message);
@@ -57,6 +33,11 @@ export class EnrollEventsService {
   }
 
   getEnroll(): Observable<Enroll[]> {
-    return this.Enroll$.asObservable();
+    return this.http.get<Enroll[]>('http://localhost:3000/enrolls');
   }
+
+  deleteEnroll(id: number): Observable<any> {
+    return this.http.delete(`http://localhost:3000/enrolls/${id}`);
+  }
+
 }

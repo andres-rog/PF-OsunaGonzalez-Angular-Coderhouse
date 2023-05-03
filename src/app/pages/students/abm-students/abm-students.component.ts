@@ -3,6 +3,10 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { StudentEventsService } from 'src/app/core/services/student-events.service';
 import { EventEmitter } from '@angular/core';
+import { catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { Student } from 'src/app/core/models';
+import { Output } from '@angular/core';
 
 @Component({
   selector: 'app-abm-students',
@@ -12,6 +16,7 @@ import { EventEmitter } from '@angular/core';
 export class AbmStudentsComponent {
 
   studentCreated = new EventEmitter<void>();
+  studentUpdated = new EventEmitter<Student>();
 
   idControl = new FormControl();
   register_dateControl = new FormControl();
@@ -55,10 +60,44 @@ export class AbmStudentsComponent {
     this.emailControl.setValue(student.email);
   }
 
-  createStudent(): void {
+  save(): void {
     if (this.studentsForm.valid) {
-      this.dialogRef.close(this.studentsForm.value);
-      this.studentEventsService.notifyStudentCreated('ESTUDIANTE CREADO CON EXITO...');
+      const student: Student = {
+        id: this.idControl.value,
+        register_date: this.register_dateControl.value,
+        firstName1: this.firstName1Control.value as string,
+        firstName2: this.firstName2Control.value as string,
+        lastName1: this.lastName1Control.value as string,
+        lastName2: this.lastName2Control.value as string,
+        phone: this.phoneControl.value as string,
+        email: this.emailControl.value as string
+      };
+
+      if (this.data.action === 'update') {
+        this.studentEventsService.modifyStudent(student.id, student).pipe(
+          catchError((error) => {
+            console.error('Failed to update student:', error);
+            return of(null);
+          })
+        ).subscribe((updatedStudent) => {
+          if (updatedStudent) {
+            this.dialogRef.close(updatedStudent);
+            this.studentEventsService.notifyStudentCreated('ESTUDIANTE ACTUALIZADO CON EXITO...');
+          }
+        });
+      } else {
+        this.studentEventsService.createStudent(student).pipe(
+          catchError((error) => {
+            console.error('Failed to create student:', error);
+            return of(null);
+          })
+        ).subscribe((createdStudent) => {
+          if (createdStudent) {
+            this.dialogRef.close(createdStudent);
+            this.studentEventsService.notifyStudentCreated('ESTUDIANTE CREADO CON EXITO...');
+          }
+        });
+      }
     } else {
       this.studentsForm.markAllAsTouched();
     }

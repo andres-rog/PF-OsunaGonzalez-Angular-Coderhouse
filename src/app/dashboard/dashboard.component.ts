@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { AuthService } from '../auth/services/auth.service';
 import links from './nav-items';
 
 @Component({
@@ -12,6 +13,11 @@ export class DashboardComponent {
   links = links;
 
   constructor(
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private authService: AuthService
   ) { }
+
+  onLogout() {
+    this.authService.logout();
+  }
 }
