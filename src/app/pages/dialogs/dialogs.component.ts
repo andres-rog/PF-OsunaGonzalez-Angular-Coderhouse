@@ -28,8 +28,5 @@ export class DialogsComponent {
         }
       }
     });
-
-    dialog.afterClosed()
-      .subscribe((value) => console.log(value));
   }
 }

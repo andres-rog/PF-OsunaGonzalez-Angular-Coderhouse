@@ -4,6 +4,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { EventEmitter } from '@angular/core';
 import { EnrollEventsService } from 'src/app/core/services/enroll-events-service';
+import { catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { Enroll } from 'src/app/core/models';
 
 @Component({
   selector: 'app-abm-Enroll',
@@ -63,10 +66,49 @@ export class AbmEnrollComponent {
     this.costControl.setValue(Enroll.cost);
   }
 
-  enrollStudent(): void {
+
+  save(): void {
     if (this.EnrollForm.valid) {
-      this.dialogRef.close(this.EnrollForm.value);
-      this.EnrollEventsService.notifyEnrollCreated('INSCRIPCION CREADA CON EXITO...');
+      const enroll: Enroll = {
+        id: this.idControl.value,
+        studentName: this.studentNameControl.value as string,
+        subjectName: this.subjectNameControl.value as string,
+        enrollDate: new Date(this.enrollDateControl.value as string),
+        startDate: new Date(this.startDateControl.value as string),
+        endDate: new Date(this.endDateControl.value as string),
+        weekDays: this.weekDaysControl.value as string,
+        startHour: this.startHourControl.value as string,
+        endHour: this.endHourControl.value as string,
+        cost: this.costControl.value as unknown as number
+      };
+
+      if (this.data.action === 'update') {
+        this.EnrollEventsService.modifyEnroll(enroll.id, enroll).pipe(
+          catchError((error) => {
+            console.error('Error', error);
+            this.EnrollEventsService.notifyEnroll('ERROR');
+            return of(null);
+          })
+        ).subscribe((updatedEnroll) => {
+          if (updatedEnroll) {
+            this.dialogRef.close(updatedEnroll);
+            this.EnrollEventsService.notifyEnroll('INSCRIPCION ACTUALIZADA CON EXITO...');
+          }
+        });
+      } else {
+        this.EnrollEventsService.createEnroll(enroll).pipe(
+          catchError((error) => {
+            console.error('Error', error);
+            this.EnrollEventsService.notifyEnroll('ERROR');
+            return of(null);
+          })
+        ).subscribe((createdEnroll) => {
+          if (createdEnroll) {
+            this.dialogRef.close(createdEnroll);
+            this.EnrollEventsService.notifyEnroll('INSCRIPCION CREADA CON EXITO...');
+          }
+        });
+      }
     } else {
       this.EnrollForm.markAllAsTouched();
     }

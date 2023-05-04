@@ -1,20 +1,20 @@
 .table-title {
     font-size: 1.5rem;
     font-weight: 500;
-  
+
   }
-  
+
   .table-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     position: relative;
     z-index: 1;
-  
+
     &::before {
       content: '';
       position: absolute;
-      top: -10px; // adjust the position to extend beyond the container
+      top: -10px;
       left: -10px;
       right: -10px;
       bottom: -10px;
@@ -23,7 +23,7 @@
       border-radius: 5px;
     }
   }
-  
+
   .action-link {
     display: inline-flex;
     align-items: center;
@@ -32,20 +32,19 @@
     text-decoration: none;
     color: rgb(0, 110, 255);
   }
-  
+
   .edit-icon {
     color: blue;
   }
-  
+
   .delete-icon {
     color: red;
   }
-  
+
   .action-link:hover {
     text-decoration: underline;
   }
-  
+
   .action-link mat-icon {
     margin-right: 4px;
   }
-  

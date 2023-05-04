@@ -68,11 +68,10 @@ export class StudentTableComponent {
       });
 
       dialog.componentInstance.studentCreated.subscribe(() => {
-        this.notificationService.showNotification('Student created successfully');
+        this.notificationService.showNotification('ESTUDIANTE CREADO EXITOSAMENTE!');
       });
 
       dialog.afterClosed().subscribe((value) => {
-        console.log(value);
         if (value) {
           const newStudent = {
             ...value,
@@ -88,10 +87,6 @@ export class StudentTableComponent {
         }
       });
     }
-
-  logStudent(student: any) {
-    console.log(student);
-  }
 
   deleteStudent(student: Student) {
     const dialogRef = this.matDialog.open(DeleteStudentDialogComponent, {
@@ -114,7 +109,6 @@ export class StudentTableComponent {
   }
 
   modifyStudent(student: Student): void {
-    console.log("MODIFY STUDENT");
     const dialogRef = this.matDialog.open(AbmStudentsComponent, {
       data: {
         action: 'update',

@@ -14,7 +14,7 @@ export class ClassSubjectEventsService {
 
   constructor(private http: HttpClient) { }
 
-  notifyClassSubjectCreated(message: string): void {
+  notifyClassSubject(message: string): void {
     this.classSubjectCreated$.next(message);
   }
 
@@ -39,6 +39,14 @@ export class ClassSubjectEventsService {
 
   deleteClassSubject(id: number): Observable<any> {
     return this.http.delete(`http://localhost:3000/subjects/${id}`);
+  }
+
+  createClassSubject(classSubject: ClassSubject): Observable<ClassSubject> {
+    return this.http.post<ClassSubject>('http://localhost:3000/subjects', classSubject);
+  }
+
+  modifyClassSubject(id: number, classSubject: ClassSubject): Observable<ClassSubject> {
+    return this.http.put<ClassSubject>(`http://localhost:3000/subjects/${id}`, classSubject);
   }
 
 }

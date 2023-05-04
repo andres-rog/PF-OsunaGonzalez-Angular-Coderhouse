@@ -6,7 +6,7 @@
       "lastName": "Osuna",
       "email": "admin@email.com",
       "password": "admin",
-      "token": "hjsdfJHFDSAFMsaDsan12sdanjjadashj3FDBEWH",
+      "token": "zixb97l8ymdopuds9dpxeedqlqo4w7veg8tdaid7",
       "role": "admin"
     },
     {
@@ -14,7 +14,7 @@
       "lastName": "TestLastName",
       "email": "test@email.com",
       "password": "test",
-      "token": "nmdsgfjhuMDKSAFJASDK327SJDKANjsadnsah",
+      "token": "avxxfpkmyatff8nlztccemkhe7lbyn35cgp1ixwj",
       "role": "user",
       "id": 4
     }
@@ -40,13 +40,13 @@
   "students": [
     {
       "id": 1,
+      "register_date": "05/02/2023",
       "firstName1": "Andres",
       "firstName2": "Roberto",
       "lastName1": "Osuna",
       "lastName2": "Gonzalez",
       "phone": "5555555555",
-      "email": "Andres.ROG@outlook.com",
-      "register_date": "05/02/2023"
+      "email": "Andres.ROG@mail.com"
     },
     {
       "id": 2,
@@ -56,7 +56,7 @@
       "lastName1": "Test3",
       "lastName2": "Test4",
       "phone": "1234567890",
-      "email": "TEST@outlook.com"
+      "email": "TEST@mail.com"
     },
     {
       "id": 3,
@@ -82,11 +82,11 @@
   "enrolls": [
     {
       "id": 1,
-      "studentName": "Andres Osuna",
+      "studentName": "zAndres Osuna",
       "subjectName": "Angular",
-      "enrollDate": "05/02/2023",
-      "startDate": "05/30/2023",
-      "endDate": "07/30/2023",
+      "enrollDate": "2023-04-30T00:00:00.000Z",
+      "startDate": "2023-05-28T00:00:00.000Z",
+      "endDate": "2023-07-28T00:00:00.000Z",
       "weekDays": "Lunes, Miercoles",
       "startHour": "09:00",
       "endHour": "11:00",
@@ -94,11 +94,11 @@
     },
     {
       "id": 2,
-      "studentName": "Test1 Test2",
+      "studentName": "1Test1 Test2",
       "subjectName": "C# .NET",
-      "enrollDate": "05/02/2023",
-      "startDate": "05/30/2023",
-      "endDate": "07/30/2023",
+      "enrollDate": "2023-05-02T00:00:00.000Z",
+      "startDate": "2023-05-30T00:00:00.000Z",
+      "endDate": "2023-07-30T00:00:00.000Z",
       "weekDays": "Martes, Jueves",
       "startHour": "14:00",
       "endHour": "16:00",

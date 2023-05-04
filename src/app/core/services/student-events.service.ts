@@ -15,7 +15,7 @@ export class StudentEventsService {
 
   constructor(private http: HttpClient) { }
 
-  notifyStudentCreated(message: string): void {
+  notifyStudent(message: string): void {
     this.studentCreated$.next(message);
   }
 
@@ -35,17 +35,14 @@ export class StudentEventsService {
   }
 
   getStudents(): Observable<Student[]> {
-    console.log("GET STUDENT called");
     return this.http.get<Student[]>('http://localhost:3000/students');
   }
 
   deleteStudent(id: number): Observable<any> {
-    console.log("DELETE STUDENT called");
     return this.http.delete(`http://localhost:3000/students/${id}`);
   }
 
   createStudent(student: Student): Observable<Student> {
-    console.log("CREATE STUDENT called");
     return this.http.post<Student>('http://localhost:3000/students', student);
   }
 

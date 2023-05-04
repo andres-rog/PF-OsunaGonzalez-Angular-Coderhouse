@@ -3,6 +3,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ClassSubjectEventsService } from 'src/app/core/services/classSubjects-events-service';
 import { EventEmitter } from '@angular/core';
+import { catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { ClassSubject } from 'src/app/core/models'; // Import the ClassSubject model if it exists
 
 @Component({
   selector: 'app-abm-classSubjects',
@@ -40,7 +43,6 @@ export class AbmClassSubjectsComponent {
   }
 
   setClassSubjectData(classSubject: any) {
-    console.log(classSubject);
     this.idControl.setValue(classSubject.id);
     this.titleControl.setValue(classSubject.title);
     this.timePerClassControl.setValue(classSubject.timePerClass);
@@ -49,13 +51,47 @@ export class AbmClassSubjectsComponent {
     this.difficultyControl.setValue(classSubject.difficulty);
   }
 
-  createClassSubject(): void {
+  save(): void {
     if (this.classSubjectsForm.valid) {
-      this.dialogRef.close(this.classSubjectsForm.value);
-      this.classSubjectEventsService.notifyClassSubjectCreated('ESTUDIANTE CREADO CON EXITO...');
+      const classSubject: ClassSubject = {
+        id: this.idControl.value,
+        title: this.titleControl.value as string,
+        timePerClass: this.timePerClassControl.value as string,
+        totalClasses: this.totalClassesControl.value as unknown as number,
+        classesPerWeek: this.classesPerWeekControl.value as unknown as number,
+        difficulty: this.difficultyControl.value as string
+      };
+
+      if (this.data.action === 'update') {
+        this.classSubjectEventsService.modifyClassSubject(classSubject.id, classSubject).pipe(
+          catchError((error) => {
+            console.error('Error:', error);
+            this.classSubjectEventsService.notifyClassSubject('ERROR AL CREAR LA MATERIA');
+            return of(null);
+          })
+        ).subscribe((updatedClassSubject) => {
+          if (updatedClassSubject) {
+            this.dialogRef.close(updatedClassSubject);
+            this.classSubjectEventsService.notifyClassSubject('MATERIA ACTUALIZADA CON EXITO...');
+          }
+        });
+      } else {
+        this.classSubjectEventsService.createClassSubject(classSubject).pipe(
+          catchError((error) => {
+            console.error('Failed:', error);
+            return of(null);
+          })
+        ).subscribe((createdClassSubject) => {
+          if (createdClassSubject) {
+            this.dialogRef.close(createdClassSubject);
+            this.classSubjectEventsService.notifyClassSubject('MATERIA CREADA CON EXITO...');
+          }
+        });
+      }
     } else {
       this.classSubjectsForm.markAllAsTouched();
     }
   }
+
 
 }

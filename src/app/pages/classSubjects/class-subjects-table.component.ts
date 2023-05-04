@@ -74,11 +74,10 @@ export class ClassSubjectTableComponent {
       });
 
       dialog.componentInstance.classSubjectCreated.subscribe(() => {
-        this.notificationService.showNotification('ClassSubject created successfully');
+        this.notificationService.showNotification('ASIGNATURA CREADA CORRECTAMENTE!');
       });
 
       dialog.afterClosed().subscribe((value) => {
-        console.log(value);
         if (value) {
           const newClassSubject = {
             ...value,
@@ -95,10 +94,6 @@ export class ClassSubjectTableComponent {
       });
     }
 
-  logClassSubject(classSubject: any) {
-    console.log(classSubject);
-  }
-
   deleteClassSubject(classSubject: any) {
     const dialogRef = this.matDialog.open(DeleteClassSubjectDialogComponent, {
       data: {
@@ -114,10 +109,11 @@ export class ClassSubjectTableComponent {
           () => {
             this.dataSource.data = this.dataSource.data.filter(s => s.id !== classSubject.id);
             this.classSubjectEventsService.updateTotalClassSubjects(this.dataSource.data.length);
-            this.notificationService.showNotification('Asignatura eliminada correctamente!');
+            this.notificationService.showNotification('ASIGNATURA ELIMINADA CORRECTAMENTE!');
           },
           (error) => {
-            this.notificationService.showNotification('Error al eliminar la asignatura!');
+            console.error('Error:', error);
+            this.notificationService.showNotification('ERROR');
           }
         );
       }
@@ -135,17 +131,22 @@ export class ClassSubjectTableComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        const index = this.dataSource.data.findIndex(s => s.id === result.id);
-        console.log(index);
-        if (index > -1) {
-          console.log(result);
-          this.dataSource.data[index] = result;
-          this.dataSource._updateChangeSubscription();
+        this.classSubjectEventsService.modifyClassSubject(result.id, result).subscribe(
+          (updatedClassSubject) => {
+            const index = this.dataSource.data.findIndex(s => s.id === updatedClassSubject.id);
+            if (index > -1) {
+              this.dataSource.data[index] = updatedClassSubject;
+              this.dataSource._updateChangeSubscription();
 
-          // Update classSubject array and sort again
-          this.dataSource.data[index] = result;
-          this.sortByTitle.next(this.sortByTitle.value);
-        }
+              // Update classSubject array and sort again
+              this.sortByTitle.next(this.sortByTitle.value);
+              this.notificationService.showNotification('Asignatura modificada correctamente!');
+            }
+          },
+          (error) => {
+            this.notificationService.showNotification('Error al modificar la asignatura!');
+          }
+        );
       }
     });
   }

@@ -81,7 +81,6 @@ export class EnrollTableComponent {
       });
 
       dialog.afterClosed().subscribe((value) => {
-        console.log(value);
         if (value) {
           const newEnroll: Enroll = {
             id: this.dataSource.data.length + 1,
@@ -96,10 +95,6 @@ export class EnrollTableComponent {
         }
       });
     }
-
-  logEnroll(enroll: any) {
-    console.log(enroll);
-  }
 
   deleteEnroll(enroll: Enroll) {
     const dialogRef = this.matDialog.open(DeleteEnrollDialogComponent, {
@@ -131,17 +126,14 @@ export class EnrollTableComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        const index = this.dataSource.data.findIndex(s => s.id === result.id);
-        console.log(index);
-        if (index > -1) {
-          console.log(result);
-          this.dataSource.data[index] = result;
-          this.dataSource._updateChangeSubscription();
-
-          // Update enroll array and sort again
-          this.dataSource.data[index] = result;
-          this.SortByEnrollDate.next(this.SortByEnrollDate.value);
-        }
+        this.enrollEventsService.modifyEnroll(result.id, result).subscribe(updatedEnroll => {
+          const index = this.dataSource.data.findIndex(s => s.id === updatedEnroll.id);
+          if (index > -1) {
+            this.dataSource.data[index] = updatedEnroll;
+            this.dataSource._updateChangeSubscription();
+            this.SortByEnrollDate.next(this.SortByEnrollDate.value);
+          }
+        });
       }
     });
   }

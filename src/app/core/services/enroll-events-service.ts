@@ -14,7 +14,7 @@ export class EnrollEventsService {
 
   constructor(private http: HttpClient) { }
 
-  notifyEnrollCreated(message: string): void {
+  notifyEnroll(message: string): void {
     this.EnrollCreated$.next(message);
   }
 
@@ -38,6 +38,14 @@ export class EnrollEventsService {
 
   deleteEnroll(id: number): Observable<any> {
     return this.http.delete(`http://localhost:3000/enrolls/${id}`);
+  }
+
+  createEnroll(enroll: Enroll): Observable<Enroll> {
+    return this.http.post<Enroll>('http://localhost:3000/enrolls', enroll);
+  }
+
+  modifyEnroll(id: number, enroll: Enroll): Observable<Enroll> {
+    return this.http.put<Enroll>(`http://localhost:3000/enrolls/${id}`, enroll);
   }
 
 }

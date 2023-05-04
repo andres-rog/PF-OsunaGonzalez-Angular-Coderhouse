@@ -49,7 +49,6 @@ export class AbmStudentsComponent {
   }
 
   setStudentData(student: any) {
-    console.log(student);
     this.idControl.setValue(student.id);
     this.register_dateControl.setValue(student.register_date);
     this.firstName1Control.setValue(student.firstName1);
@@ -76,25 +75,27 @@ export class AbmStudentsComponent {
       if (this.data.action === 'update') {
         this.studentEventsService.modifyStudent(student.id, student).pipe(
           catchError((error) => {
-            console.error('Failed to update student:', error);
+            console.error('Error', error);
+            this.studentEventsService.notifyStudent('ERROR');
             return of(null);
           })
         ).subscribe((updatedStudent) => {
           if (updatedStudent) {
             this.dialogRef.close(updatedStudent);
-            this.studentEventsService.notifyStudentCreated('ESTUDIANTE ACTUALIZADO CON EXITO...');
+            this.studentEventsService.notifyStudent('ESTUDIANTE ACTUALIZADO CON EXITO...');
           }
         });
       } else {
         this.studentEventsService.createStudent(student).pipe(
           catchError((error) => {
-            console.error('Failed to create student:', error);
+            console.error('Error', error);
+            this.studentEventsService.notifyStudent('ERROR');
             return of(null);
           })
         ).subscribe((createdStudent) => {
           if (createdStudent) {
             this.dialogRef.close(createdStudent);
-            this.studentEventsService.notifyStudentCreated('ESTUDIANTE CREADO CON EXITO...');
+            this.studentEventsService.notifyStudent('ESTUDIANTE CREADO CON EXITO...');
           }
         });
       }
