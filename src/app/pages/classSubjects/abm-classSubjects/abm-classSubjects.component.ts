@@ -66,7 +66,7 @@ export class AbmClassSubjectsComponent {
         this.classSubjectEventsService.modifyClassSubject(classSubject.id, classSubject).pipe(
           catchError((error) => {
             console.error('Error:', error);
-            this.classSubjectEventsService.notifyClassSubject('ERROR AL CREAR LA MATERIA');
+            this.classSubjectEventsService.notifyClassSubject('ERROR');
             return of(null);
           })
         ).subscribe((updatedClassSubject) => {
@@ -78,7 +78,7 @@ export class AbmClassSubjectsComponent {
       } else {
         this.classSubjectEventsService.createClassSubject(classSubject).pipe(
           catchError((error) => {
-            console.error('Failed:', error);
+            console.error('Error:', error);
             return of(null);
           })
         ).subscribe((createdClassSubject) => {

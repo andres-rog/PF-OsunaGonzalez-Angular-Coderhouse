@@ -7,7 +7,7 @@ import { NotificationsService } from 'src/app/core/services/notifications.servic
 import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ClassSubjectEventsService } from 'src/app/core/services/classSubjects-events-service';
-
+import { AuthService } from 'src/app/auth/services/auth.service';
 export interface ClassSubject {
   id: number;
   title: string;
@@ -39,7 +39,8 @@ export class ClassSubjectTableComponent {
   constructor(
     private matDialog: MatDialog,
     private notificationService: NotificationsService,
-    private classSubjectEventsService: ClassSubjectEventsService
+    private classSubjectEventsService: ClassSubjectEventsService,
+    public authService: AuthService
     ) {
 
       this.classSubjectEventsService.getClassSubjects().subscribe((classSubject) =>{
@@ -94,62 +95,77 @@ export class ClassSubjectTableComponent {
       });
     }
 
-  deleteClassSubject(classSubject: any) {
-    const dialogRef = this.matDialog.open(DeleteClassSubjectDialogComponent, {
-      data: {
-        title: 'Eliminar Asignatura',
-        name: `${classSubject.title}`,
-        message: `¿Estás seguro de eliminar el registro de esta asignatura?`
-      }
-    });
+    deleteClassSubject(classSubject: any) {
+      this.authService.isAdmin().subscribe(isAdmin => {
+        if (!isAdmin) {
+          alert('ERROR: Contacta a un administrador para realizar esta accion');
+          return;
+        }
 
-    dialogRef.afterClosed().subscribe(async result => {
-      if (result) {
-        this.classSubjectEventsService.deleteClassSubject(classSubject.id).subscribe(
-          () => {
-            this.dataSource.data = this.dataSource.data.filter(s => s.id !== classSubject.id);
-            this.classSubjectEventsService.updateTotalClassSubjects(this.dataSource.data.length);
-            this.notificationService.showNotification('ASIGNATURA ELIMINADA CORRECTAMENTE!');
-          },
-          (error) => {
-            console.error('Error:', error);
-            this.notificationService.showNotification('ERROR');
+        const dialogRef = this.matDialog.open(DeleteClassSubjectDialogComponent, {
+          data: {
+            title: 'Eliminar Asignatura',
+            name: `${classSubject.title}`,
+            message: `¿Estás seguro de eliminar el registro de esta asignatura?`
           }
-        );
-      }
-    });
-  }
+        });
 
-
-  modifyClassSubject(classSubject: any) {
-    const dialogRef = this.matDialog.open(AbmClassSubjectsComponent, {
-      data: {
-        action: 'update',
-        classSubject: classSubject
-      }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.classSubjectEventsService.modifyClassSubject(result.id, result).subscribe(
-          (updatedClassSubject) => {
-            const index = this.dataSource.data.findIndex(s => s.id === updatedClassSubject.id);
-            if (index > -1) {
-              this.dataSource.data[index] = updatedClassSubject;
-              this.dataSource._updateChangeSubscription();
-
-              // Update classSubject array and sort again
-              this.sortByTitle.next(this.sortByTitle.value);
-              this.notificationService.showNotification('Asignatura modificada correctamente!');
-            }
-          },
-          (error) => {
-            this.notificationService.showNotification('Error al modificar la asignatura!');
+        dialogRef.afterClosed().subscribe(async result => {
+          if (result) {
+            this.classSubjectEventsService.deleteClassSubject(classSubject.id).subscribe(
+              () => {
+                this.dataSource.data = this.dataSource.data.filter(s => s.id !== classSubject.id);
+                this.classSubjectEventsService.updateTotalClassSubjects(this.dataSource.data.length);
+                this.notificationService.showNotification('ASIGNATURA ELIMINADA CORRECTAMENTE!');
+              },
+              (error) => {
+                console.error('Error:', error);
+                this.notificationService.showNotification('ERROR');
+              }
+            );
           }
-        );
-      }
-    });
-  }
+        });
+      });
+    }
+
+
+    modifyClassSubject(classSubject: any) {
+      this.authService.isAdmin().subscribe(isAdmin => {
+        if (!isAdmin) {
+          alert('ERROR: Contacta a un administrador para realizar esta accion');
+          return;
+        }
+
+        const dialogRef = this.matDialog.open(AbmClassSubjectsComponent, {
+          data: {
+            action: 'update',
+            classSubject: classSubject
+          }
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+          if (result) {
+            this.classSubjectEventsService.modifyClassSubject(result.id, result).subscribe(
+              (updatedClassSubject) => {
+                const index = this.dataSource.data.findIndex(s => s.id === updatedClassSubject.id);
+                if (index > -1) {
+                  this.dataSource.data[index] = updatedClassSubject;
+                  this.dataSource._updateChangeSubscription();
+
+                  // Update classSubject array and sort again
+                  this.sortByTitle.next(this.sortByTitle.value);
+                  this.notificationService.showNotification('Asignatura modificada correctamente!');
+                }
+              },
+              (error) => {
+                console.error('Error:', error);
+                this.notificationService.showNotification('ERROR');
+              }
+            );
+          }
+        });
+      });
+    }
 
   toggleSortByName(checked: boolean): void {
     this.sortByTitle.next(checked);

@@ -73,11 +73,11 @@
   <ng-container matColumnDef="delete/modify">
     <th mat-header-cell *matHeaderCellDef [ngStyle]="{'font-size': '20px'}">Acciones</th>
     <td mat-cell *matCellDef="let enroll">
-      <a href="#" class="action-link" (click)="modifyEnroll(enroll); $event.preventDefault()">
+      <a href="#" class="action-link" [class.disabled]="!(authService.isAdmin() | async)"  (click)="modifyEnroll(enroll); $event.preventDefault()">
         <mat-icon class="edit-icon">edit</mat-icon>
         Modificar
       </a>
-      <a href="#" class="action-link" (click)="deleteEnroll(enroll); $event.preventDefault()">
+      <a href="#" class="action-link" [class.disabled]="!(authService.isAdmin() | async)" (click)="deleteEnroll(enroll); $event.preventDefault()">
         <mat-icon class="delete-icon">delete</mat-icon>
         Eliminar
       </a>

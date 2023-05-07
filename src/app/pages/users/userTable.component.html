@@ -1,9 +1,9 @@
 <div class="mb-3">
   <section class="table-header">
-    <p class="table-title">Estudiantes:</p>
-    <button (click)="openABMStudent()" color="primary" mat-flat-button>
+    <p class="table-title">Usuarios:</p>
+    <button (click)="openABMUser()" color="primary" mat-flat-button>
       <mat-icon>add</mat-icon>
-      Agregar Alumno
+      Agregar Usuario
     </button>
   </section>
   <br>
@@ -11,59 +11,63 @@
 </div>
 
 <mat-form-field class="w-full">
-  <mat-label>Filtrar (ejemplo: Nombre de alumno)</mat-label>
+  <mat-label>Filtrar (ejemplo: Nombre de usuario)</mat-label>
   <input matInput (keyup)="filter($event)" placeholder="Ex. ium" #input>
 </mat-form-field>
-<h4>Cantidad de alumnos: {{totalStudents$ | async}}</h4>
+<h4>Cantidad de usuarios: {{totalUsers$ | async}}</h4>
 <mat-checkbox (change)="toggleSortByName($event.checked)">Ordenar por nombres</mat-checkbox>
 
-<!--Student Columns-->
+<!--User Columns-->
 <table mat-table [dataSource]="dataSource">
 
   <ng-container matColumnDef="id">
     <th mat-header-cell *matHeaderCellDef [ngStyle]="{'font-size': '20px'}">Id</th>
-    <td mat-cell *matCellDef="let student"> {{student.id}} </td>
+    <td mat-cell *matCellDef="let user"> {{user.id}} </td>
   </ng-container>
 
   <ng-container matColumnDef="firstNames">
     <th mat-header-cell *matHeaderCellDef [ngStyle]="{'font-size': '20px'}">Nombres</th>
-    <td mat-cell *matCellDef="let student">
-      {{student | firstNames : 'uppercase': '' }}
+    <td mat-cell *matCellDef="let user">
+      {{user | firstNames : 'uppercase': '' }}
     </td>
   </ng-container>
 
   <ng-container matColumnDef="lastNames">
     <th mat-header-cell *matHeaderCellDef [ngStyle]="{'font-size': '20px'}">Apellidos</th>
-    <td mat-cell *matCellDef="let student">
-      {{student | lastNames : 'uppercase': '' }}
-    </td>
-  </ng-container>
-
-  <ng-container matColumnDef="phone">
-    <th mat-header-cell *matHeaderCellDef [ngStyle]="{'font-size': '20px'}">Telefono</th>
-    <td mat-cell *matCellDef="let student">
-      {{student | phonePipe }}
+    <td mat-cell *matCellDef="let user">
+      {{user | lastNames : 'uppercase': '' }}
     </td>
   </ng-container>
 
   <ng-container matColumnDef="email">
     <th mat-header-cell *matHeaderCellDef [ngStyle]="{'font-size': '20px'}">Email</th>
-    <td mat-cell *matCellDef="let student"> {{student.email}} </td>
+    <td mat-cell *matCellDef="let user"> {{user.email}} </td>
   </ng-container>
 
   <ng-container matColumnDef="register_date">
     <th mat-header-cell *matHeaderCellDef [ngStyle]="{'font-size': '20px'}">Fecha de registro</th>
-    <td mat-cell *matCellDef="let student"> {{student.register_date | date: 'dd/MM/YYYY'  }} </td>
+    <td mat-cell *matCellDef="let user"> {{user.register_date | date: 'dd/MM/YYYY'  }} </td>
   </ng-container>
+
+  <ng-container matColumnDef="title">
+    <th mat-header-cell *matHeaderCellDef [ngStyle]="{'font-size': '20px'}">Titulo</th>
+    <td mat-cell *matCellDef="let user"> {{user.title}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="role">
+    <th mat-header-cell *matHeaderCellDef [ngStyle]="{'font-size': '20px'}">Rol</th>
+    <td mat-cell *matCellDef="let user"> {{user.role}} </td>
+  </ng-container>
+
 
   <ng-container matColumnDef="delete/modify">
     <th mat-header-cell *matHeaderCellDef [ngStyle]="{'font-size': '20px'}">Acciones</th>
-    <td mat-cell *matCellDef="let student">
-      <a href="#" class="action-link" [class.disabled]="!(authService.isAdmin() | async)" (click)="modifyStudent(student); $event.preventDefault()">
+    <td mat-cell *matCellDef="let user">
+      <a href="#" class="action-link" [class.disabled]="!(authService.isAdmin() | async)" (click)="modifyUser(user); $event.preventDefault()">
         <mat-icon class="edit-icon">edit</mat-icon>
         Modificar
       </a>
-      <a href="#" class="action-link" [class.disabled]="!(authService.isAdmin() | async)" (click)="deleteStudent(student); $event.preventDefault()">
+      <a href="#" class="action-link" [class.disabled]="!(authService.isAdmin() | async)" (click)="deleteUser(user); $event.preventDefault()">
         <mat-icon class="delete-icon">delete</mat-icon>
         Eliminar
       </a>
@@ -71,6 +75,6 @@
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let student; columns: displayedColumns;"></tr>
+  <tr mat-row *matRowDef="let user; columns: displayedColumns;"></tr>
 
 </table>

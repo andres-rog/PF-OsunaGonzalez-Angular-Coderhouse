@@ -48,3 +48,13 @@
   .action-link mat-icon {
     margin-right: 4px;
   }
+
+  .action-link.disabled {
+    pointer-events: none;
+    color: #ccc;
+    text-decoration: none;
+  }
+
+  .action-link.disabled > mat-icon {
+    color: #ccc;
+  }

@@ -6,7 +6,6 @@ import { EventEmitter } from '@angular/core';
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { Student } from 'src/app/core/models';
-import { Output } from '@angular/core';
 
 @Component({
   selector: 'app-abm-students',

@@ -1,9 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { StudentTableComponent } from './pages/students/studentTable.component';
-import { EnrollTableComponent } from './pages/enroll/enroll-table.component';
-import { ClassSubjectTableComponent } from './pages/classSubjects/class-subjects-table.component';
 import { AuthComponent } from './auth/auth.component';
 import { AuthGuard } from './auth/guards/auth.guard';
 import { LoginGuard } from './auth/guards/login.guard';

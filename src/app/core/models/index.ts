@@ -1,10 +1,14 @@
 export interface User {
     id: number;
-    firstName: string;
-    lastName: string;
+    firstName1: string;
+    firstName2: string;
+    lastName1: string;
+    lastName2: string;
+    title: string;
     role: string;
     email: string;
     token: string;
+    register_date: Date;
   }
 
   export interface Student {

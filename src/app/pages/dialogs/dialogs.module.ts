@@ -10,6 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { DeleteClassSubjectDialogComponent } from './dialog-components/delete-classSubject-dialog/delete-classSubject-dialog.component';
 import { DeleteEnrollDialogComponent } from './dialog-components/delete-enroll-dialog/delete-enroll-dialog.component';
+import { DeleteUserDialogComponent } from './dialog-components/delete-user-dialog/delete-user-dialog.component';
 
 
 
@@ -19,7 +20,8 @@ import { DeleteEnrollDialogComponent } from './dialog-components/delete-enroll-d
     StudentDialogComponent,
     DeleteStudentDialogComponent,
     DeleteClassSubjectDialogComponent,
-    DeleteEnrollDialogComponent
+    DeleteEnrollDialogComponent,
+    DeleteUserDialogComponent
   ],
   imports: [
     CommonModule,

@@ -8,7 +8,7 @@ import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { StudentEventsService } from 'src/app/core/services/student-events.service';
 import { Student } from 'src/app/core/models';
-
+import { AuthService } from 'src/app/auth/services/auth.service';
 @Component({
   selector: 'app-table',
   templateUrl: './studentTable.component.html',
@@ -31,7 +31,8 @@ export class StudentTableComponent {
   constructor(
     private matDialog: MatDialog,
     private notificationService: NotificationsService,
-    private studentEventsService: StudentEventsService
+    private studentEventsService: StudentEventsService,
+    public authService: AuthService
     ) {
 
       this.studentEventsService.getStudents().subscribe((student) =>{
@@ -61,6 +62,7 @@ export class StudentTableComponent {
 
 
      openABMStudent(): void {
+      console.log('Local Storage:', window.localStorage);
       const dialog = this.matDialog.open(AbmStudentsComponent, {
         data: {
           action: 'create'
@@ -89,50 +91,69 @@ export class StudentTableComponent {
     }
 
   deleteStudent(student: Student) {
-    const dialogRef = this.matDialog.open(DeleteStudentDialogComponent, {
-      data: {
-        title: 'Eliminar Alumno',
-        name: `${student.firstName1} ${student.firstName2} ${student.lastName1} ${student.lastName2}`,
-        message: `¿Estás seguro de eliminar el registro de este alumno?`
+    this.authService.isAdmin().subscribe(isAdmin => {
+      if (!isAdmin) {
+        alert('ERROR: Contacta a un administrador para realizar esta accion');
+        return;
       }
-    });
+      if (!this.authService.isAdmin()) {
+        return;
+      }
+      const dialogRef = this.matDialog.open(DeleteStudentDialogComponent, {
+        data: {
+          title: 'Eliminar Alumno',
+          name: `${student.firstName1} ${student.firstName2} ${student.lastName1} ${student.lastName2}`,
+          message: `¿Estás seguro de eliminar el registro de este alumno?`
+        }
+      });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.studentEventsService.deleteStudent(student.id).subscribe(() => {
-          this.dataSource.data = this.dataSource.data.filter(s => s.id !== student.id);
-          this.sortByNames.next(this.sortByNames.value);
-          this.studentEventsService.updateTotalStudents(this.dataSource.data.length);
-        });
-      }
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          this.studentEventsService.deleteStudent(student.id).subscribe(() => {
+            this.dataSource.data = this.dataSource.data.filter(s => s.id !== student.id);
+            this.sortByNames.next(this.sortByNames.value);
+            this.studentEventsService.updateTotalStudents(this.dataSource.data.length);
+          });
+        }
+      });
     });
   }
 
   modifyStudent(student: Student): void {
-    const dialogRef = this.matDialog.open(AbmStudentsComponent, {
-      data: {
-        action: 'update',
-        student: student
+    this.authService.isAdmin().subscribe(isAdmin => {
+      if (!isAdmin) {
+        alert('ERROR: Contacta a un administrador para realizar esta accion');
+        return;
       }
-    });
+      if (!this.authService.isAdmin()) {
+        return;
+      }
+      const dialogRef = this.matDialog.open(AbmStudentsComponent, {
+        data: {
+          action: 'update',
+          student: student
+        }
+      });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        const updatedStudent = result;
-        this.studentEventsService.modifyStudent(student.id, updatedStudent).subscribe(
-          (updatedStudent) => {
-            const index = this.dataSource.data.findIndex(s => s.id === updatedStudent.id);
-            if (index > -1) {
-              this.dataSource.data[index] = updatedStudent;
-              this.dataSource._updateChangeSubscription();
-              this.sortByNames.next(this.sortByNames.value);
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          const updatedStudent = result;
+          this.studentEventsService.modifyStudent(student.id, updatedStudent).subscribe(
+            (updatedStudent) => {
+              const index = this.dataSource.data.findIndex(s => s.id === updatedStudent.id);
+              if (index > -1) {
+                this.dataSource.data[index] = updatedStudent;
+                this.dataSource._updateChangeSubscription();
+                this.sortByNames.next(this.sortByNames.value);
+              }
+            },
+            (error) => {
+              console.error('Error:', error);
+              this.notificationService.showNotification('ERROR');
             }
-          },
-          (error) => {
-
-          }
-        );
-      }
+          );
+        }
+      });
     });
   }
 

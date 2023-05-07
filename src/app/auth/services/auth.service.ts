@@ -18,7 +18,7 @@ export class AuthService {
 
   constructor(
     private router: Router,
-    private httpClient: HttpClient,
+    private httpClient: HttpClient
   ) { }
 
   getLogedUser(): Observable<User | null> {
@@ -78,4 +78,32 @@ export class AuthService {
         })
       );
   }
+
+  isAdmin(): Observable<boolean> {
+    return this.getLogedUser().pipe(
+      map((user) => user?.role === 'admin')
+    );
+  }
+
+  findUserByToken(token: string): void {
+    this.httpClient.get<User[]>(
+      `${enviroment.apiBaseUrl}/user?token=${token}`,
+      {
+        headers: new HttpHeaders({
+          'Authorization': token || '',
+        }),
+      }
+    ).subscribe({
+      next: (users) => {
+        const foundUser = users[0];
+        if (foundUser) {
+          this.authUser$.next(foundUser);
+        }
+      },
+      error: (err) => {
+        console.error('Error finding user by token:', err);
+      }
+    });
+  }
+
 }

@@ -14,7 +14,7 @@ export class DashboardComponent {
 
   constructor(
     private dialog: MatDialog,
-    private authService: AuthService
+    public authService: AuthService
   ) { }
 
   onLogout() {

@@ -15,7 +15,9 @@ import { ClassSubjectsModule } from '../pages/classSubjects/class-subjects.modul
 import { StudentTableComponent } from '../pages/students/studentTable.component';
 import { EnrollTableComponent } from '../pages/enroll/enroll-table.component';
 import { ClassSubjectTableComponent } from '../pages/classSubjects/class-subjects-table.component';
-
+import { UserTableComponent } from '../pages/users/userTable.component';
+import { AdminGuard } from '../auth/guards/admin.guard';
+import { UsersModule } from '../pages/users/users.module';
 @NgModule({
   declarations: [
     DashboardComponent
@@ -44,14 +46,20 @@ import { ClassSubjectTableComponent } from '../pages/classSubjects/class-subject
           {
             path: 'subjects',
             component: ClassSubjectTableComponent //Subjects
-          }
+          },
+          {
+            path: 'users',
+            component: UserTableComponent, //Users
+            canActivate: [AdminGuard]
+          },
         ]
       },
     ]),
     MatListModule,
     StudentsModule,
     EnrollsModule,
-    ClassSubjectsModule
+    ClassSubjectsModule,
+    UsersModule
   ],
   exports: [
     DashboardComponent

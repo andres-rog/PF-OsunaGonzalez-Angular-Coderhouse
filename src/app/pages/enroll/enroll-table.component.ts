@@ -6,7 +6,7 @@ import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { EnrollEventsService } from '../../core/services/enroll-events-service';
 import { DeleteEnrollDialogComponent } from '../dialogs/dialog-components/delete-enroll-dialog/delete-enroll-dialog.component';
-
+import { AuthService } from 'src/app/auth/services/auth.service';
 export interface Enroll {
   id: number;
   studentName: string;
@@ -22,8 +22,8 @@ export interface Enroll {
 
 @Component({
   selector: 'app-table',
-  templateUrl: './enroll-Table.component.html',
-  styleUrls: ['./enroll-Table.component.scss']
+  templateUrl: './enroll-table.component.html',
+  styleUrls: ['./enroll-table.component.scss']
 })
 export class EnrollTableComponent {
 
@@ -45,7 +45,7 @@ export class EnrollTableComponent {
 
   constructor(
     private matDialog: MatDialog,
-    //private notificationService: NotificationsService,
+    public authService: AuthService,
     private enrollEventsService: EnrollEventsService
     ) {
 
@@ -97,44 +97,62 @@ export class EnrollTableComponent {
     }
 
   deleteEnroll(enroll: Enroll) {
-    const dialogRef = this.matDialog.open(DeleteEnrollDialogComponent, {
-      data: {
-        title: 'Eliminar Inscripcion',
-        name: `${enroll.studentName} - ${enroll.subjectName}`,
-        message: `¿Estás seguro de eliminar esta inscripcion?`
+    this.authService.isAdmin().subscribe(isAdmin => {
+      if (!isAdmin) {
+        alert('ERROR: Contacta a un administrador para realizar esta accion');
+        return;
       }
-    });
+      if (!this.authService.isAdmin()) {
+        return;
+      }
+      const dialogRef = this.matDialog.open(DeleteEnrollDialogComponent, {
+        data: {
+          title: 'Eliminar Inscripcion',
+          name: `${enroll.studentName} - ${enroll.subjectName}`,
+          message: `¿Estás seguro de eliminar esta inscripcion?`
+        }
+      });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.enrollEventsService.deleteEnroll(enroll.id).subscribe(() => {
-          this.dataSource.data = this.dataSource.data.filter(e => e.id !== enroll.id);
-          this.SortByEnrollDate.next(this.SortByEnrollDate.value);
-          this.enrollEventsService.updateTotalEnroll(this.dataSource.data.length);
-        });
-      }
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          this.enrollEventsService.deleteEnroll(enroll.id).subscribe(() => {
+            this.dataSource.data = this.dataSource.data.filter(e => e.id !== enroll.id);
+            this.SortByEnrollDate.next(this.SortByEnrollDate.value);
+            this.enrollEventsService.updateTotalEnroll(this.dataSource.data.length);
+          });
+        }
+      });
     });
   }
 
   modifyEnroll(enroll: any) {
-    const dialogRef = this.matDialog.open(AbmEnrollComponent, {
-      data: {
-        action: 'update',
-        Enroll: enroll
+    this.authService.isAdmin().subscribe(isAdmin => {
+      if (!isAdmin) {
+        alert('ERROR: Contacta a un administrador para realizar esta accion');
+        return;
       }
-    });
+      if (!this.authService.isAdmin()) {
+        return;
+      }
+      const dialogRef = this.matDialog.open(AbmEnrollComponent, {
+        data: {
+          action: 'update',
+          Enroll: enroll
+        }
+      });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.enrollEventsService.modifyEnroll(result.id, result).subscribe(updatedEnroll => {
-          const index = this.dataSource.data.findIndex(s => s.id === updatedEnroll.id);
-          if (index > -1) {
-            this.dataSource.data[index] = updatedEnroll;
-            this.dataSource._updateChangeSubscription();
-            this.SortByEnrollDate.next(this.SortByEnrollDate.value);
-          }
-        });
-      }
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          this.enrollEventsService.modifyEnroll(result.id, result).subscribe(updatedEnroll => {
+            const index = this.dataSource.data.findIndex(s => s.id === updatedEnroll.id);
+            if (index > -1) {
+              this.dataSource.data[index] = updatedEnroll;
+              this.dataSource._updateChangeSubscription();
+              this.SortByEnrollDate.next(this.SortByEnrollDate.value);
+            }
+          });
+        }
+      });
     });
   }
 
