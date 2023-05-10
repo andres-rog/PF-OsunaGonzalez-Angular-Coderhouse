@@ -10,20 +10,29 @@ import { Student } from 'src/app/core/models';
 @Component({
   selector: 'app-abm-students',
   templateUrl: './abm-students.component.html',
-  styleUrls: ['./abm-students.component.scss']
+  styleUrls: ['./abm-students.component.scss'],
 })
 export class AbmStudentsComponent {
-
   studentCreated = new EventEmitter<void>();
   studentUpdated = new EventEmitter<Student>();
 
   idControl = new FormControl();
   register_dateControl = new FormControl();
-  firstName1Control = new FormControl('', [Validators.required, Validators.maxLength(30)]);
-  firstName2Control = new FormControl('',[Validators.maxLength(30)]);
-  lastName1Control = new FormControl('', [Validators.required, Validators.maxLength(30)]);
+  firstName1Control = new FormControl('', [
+    Validators.required,
+    Validators.maxLength(30),
+  ]);
+  firstName2Control = new FormControl('', [Validators.maxLength(30)]);
+  lastName1Control = new FormControl('', [
+    Validators.required,
+    Validators.maxLength(30),
+  ]);
   lastName2Control = new FormControl('', [Validators.maxLength(30)]);
-  phoneControl = new FormControl('', [Validators.required, Validators.maxLength(10), Validators.minLength(10)]);
+  phoneControl = new FormControl('', [
+    Validators.required,
+    Validators.maxLength(10),
+    Validators.minLength(10),
+  ]);
   emailControl = new FormControl('', [Validators.required, Validators.email]);
 
   studentsForm = new FormGroup({
@@ -34,7 +43,7 @@ export class AbmStudentsComponent {
     lastName1: this.lastName1Control,
     lastName2: this.lastName2Control,
     phone: this.phoneControl,
-    email: this.emailControl
+    email: this.emailControl,
   });
 
   constructor(
@@ -68,35 +77,45 @@ export class AbmStudentsComponent {
         lastName1: this.lastName1Control.value as string,
         lastName2: this.lastName2Control.value as string,
         phone: this.phoneControl.value as string,
-        email: this.emailControl.value as string
+        email: this.emailControl.value as string,
       };
 
       if (this.data.action === 'update') {
-        this.studentEventsService.modifyStudent(student.id, student).pipe(
-          catchError((error) => {
-            console.error('Error', error);
-            this.studentEventsService.notifyStudent('ERROR');
-            return of(null);
-          })
-        ).subscribe((updatedStudent) => {
-          if (updatedStudent) {
-            this.dialogRef.close(updatedStudent);
-            this.studentEventsService.notifyStudent('ESTUDIANTE ACTUALIZADO CON EXITO...');
-          }
-        });
+        this.studentEventsService
+          .modifyStudent(student.id, student)
+          .pipe(
+            catchError((error) => {
+              console.error('Error', error);
+              this.studentEventsService.notifyStudent('ERROR');
+              return of(null);
+            })
+          )
+          .subscribe((updatedStudent) => {
+            if (updatedStudent) {
+              this.dialogRef.close(updatedStudent);
+              this.studentEventsService.notifyStudent(
+                'ESTUDIANTE ACTUALIZADO CON EXITO...'
+              );
+            }
+          });
       } else {
-        this.studentEventsService.createStudent(student).pipe(
-          catchError((error) => {
-            console.error('Error', error);
-            this.studentEventsService.notifyStudent('ERROR');
-            return of(null);
-          })
-        ).subscribe((createdStudent) => {
-          if (createdStudent) {
-            this.dialogRef.close(createdStudent);
-            this.studentEventsService.notifyStudent('ESTUDIANTE CREADO CON EXITO...');
-          }
-        });
+        this.studentEventsService
+          .createStudent(student)
+          .pipe(
+            catchError((error) => {
+              console.error('Error', error);
+              this.studentEventsService.notifyStudent('ERROR');
+              return of(null);
+            })
+          )
+          .subscribe((createdStudent) => {
+            if (createdStudent) {
+              this.dialogRef.close(createdStudent);
+              this.studentEventsService.notifyStudent(
+                'ESTUDIANTE CREADO CON EXITO...'
+              );
+            }
+          });
       }
     } else {
       this.studentsForm.markAllAsTouched();
@@ -104,7 +123,7 @@ export class AbmStudentsComponent {
   }
 
   numberOnly(event: any): boolean {
-    const charCode = (event.which) ? event.which : event.keyCode;
+    const charCode = event.which ? event.which : event.keyCode;
     if (charCode > 31 && (charCode < 48 || charCode > 57)) {
       return false;
     }

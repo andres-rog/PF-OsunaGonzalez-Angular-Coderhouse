@@ -14,10 +14,7 @@ import { DialogsModule } from '../dialogs/dialogs.module';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
-  declarations: [
-    StudentTableComponent,
-    AbmStudentsComponent
-  ],
+  declarations: [StudentTableComponent, AbmStudentsComponent],
   imports: [
     CommonModule,
     MatTableModule,
@@ -30,9 +27,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     ReactiveFormsModule,
     DialogsModule,
     MatCheckboxModule,
+    MatFormFieldModule,
   ],
-  exports: [
-    StudentTableComponent
-  ]
+  exports: [StudentTableComponent],
 })
-export class StudentsModule { }
+export class StudentsModule {}
