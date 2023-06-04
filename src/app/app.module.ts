@@ -7,6 +7,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { StoreModule } from '@ngrx/store';
+import { actionReducerMap } from './store';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,6 +21,7 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    StoreModule.forRoot(actionReducerMap, {}),
   ],
   providers: [],
   bootstrap: [AppComponent],
