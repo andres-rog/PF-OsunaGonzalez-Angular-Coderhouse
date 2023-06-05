@@ -82,7 +82,7 @@ export class AbmUsersComponent {
       if (this.data.action === 'update') {
         this.userEventsService.modifyUser(user.id, user).pipe(
           catchError((error) => {
-            console.error('Error', error);
+            //console.error('Error', error);
             this.userEventsService.notifyUser('ERROR');
             return of(null);
           })
@@ -95,7 +95,7 @@ export class AbmUsersComponent {
       } else {
         this.userEventsService.createUser(user).pipe(
           catchError((error) => {
-            console.error('Error', error);
+            //console.error('Error', error);
             this.userEventsService.notifyUser('ERROR');
             return of(null);
           })

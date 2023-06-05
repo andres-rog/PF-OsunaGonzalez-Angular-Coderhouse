@@ -148,7 +148,7 @@ export class StudentTableComponent {
               }
             },
             (error) => {
-              console.error('Error:', error);
+              //console.error('Error:', error);
               this.notificationService.showNotification('ERROR');
             }
           );

@@ -85,7 +85,7 @@ export class AbmStudentsComponent {
           .modifyStudent(student.id, student)
           .pipe(
             catchError((error) => {
-              console.error('Error', error);
+              //console.error('Error', error);
               this.studentEventsService.notifyStudent('ERROR');
               return of(null);
             })
@@ -103,7 +103,7 @@ export class AbmStudentsComponent {
           .createStudent(student)
           .pipe(
             catchError((error) => {
-              console.error('Error', error);
+              //console.error('Error', error);
               this.studentEventsService.notifyStudent('ERROR');
               return of(null);
             })

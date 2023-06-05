@@ -119,7 +119,7 @@ export class ClassSubjectTableComponent {
                 this.notificationService.showNotification('ASIGNATURA ELIMINADA CORRECTAMENTE!');
               },
               (error) => {
-                console.error('Error:', error);
+                //console.error('Error:', error);
                 this.notificationService.showNotification('ERROR');
               }
             );
@@ -158,7 +158,7 @@ export class ClassSubjectTableComponent {
                 }
               },
               (error) => {
-                console.error('Error:', error);
+                //console.error('Error:', error);
                 this.notificationService.showNotification('ERROR');
               }
             );

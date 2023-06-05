@@ -18,6 +18,8 @@ import { ClassSubjectTableComponent } from '../pages/classSubjects/class-subject
 import { UserTableComponent } from '../pages/users/userTable.component';
 import { AdminGuard } from '../auth/guards/admin.guard';
 import { UsersModule } from '../pages/users/users.module';
+import { LoginGuard } from '../auth/guards/login.guard';
+import { AuthGuard } from '../auth/guards/auth.guard';
 @NgModule({
   declarations: [
     DashboardComponent
@@ -34,6 +36,7 @@ import { UsersModule } from '../pages/users/users.module';
       {
         path: 'dashboard',
         component: DashboardComponent,
+        canActivate: [AuthGuard],
         children: [
           {
             path: 'students',

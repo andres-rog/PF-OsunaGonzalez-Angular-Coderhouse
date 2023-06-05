@@ -85,7 +85,7 @@ export class AbmEnrollComponent {
       if (this.data.action === 'update') {
         this.EnrollEventsService.modifyEnroll(enroll.id, enroll).pipe(
           catchError((error) => {
-            console.error('Error', error);
+            //console.error('Error', error);
             this.EnrollEventsService.notifyEnroll('ERROR');
             return of(null);
           })
@@ -98,7 +98,7 @@ export class AbmEnrollComponent {
       } else {
         this.EnrollEventsService.createEnroll(enroll).pipe(
           catchError((error) => {
-            console.error('Error', error);
+            //console.error('Error', error);
             this.EnrollEventsService.notifyEnroll('ERROR');
             return of(null);
           })
