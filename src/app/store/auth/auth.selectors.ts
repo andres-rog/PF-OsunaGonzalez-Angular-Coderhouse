@@ -9,3 +9,8 @@ export const selectAuthUser = createSelector(
     selectAuthState,
     (state) => state.authUser
 );
+
+export const selectIsTokenVerified = createSelector(
+    selectAuthState,
+    (state: AuthState) => state.isTokenVerified
+  );
